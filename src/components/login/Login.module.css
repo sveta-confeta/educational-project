@@ -1,0 +1,64 @@
+.wrapper {
+    position: fixed;
+    top: 20%;
+    text-align: center;
+    width: 100%;
+}
+
+.loginForm {
+    max-width: 330px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #FFF;
+    padding: 20px;
+    border-radius: 8px;
+
+}
+
+.title {
+    text-align: center;
+    font-size: 50px;
+}
+
+.textLink {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 20px;
+}
+
+.input {
+    margin-bottom: 15px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatarInput {
+    width: 100%;
+}
+
+.nickname {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.cardPacksCount {
+    margin-bottom: 20px;
+}
+
+.login {
+    margin-top: 10px;
+}
+
+.instructions {
+    text-align: left;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 15px 0;
+}

@@ -1,0 +1,10 @@
+.nav{
+    display: flex;
+    background-color: aquamarine;
+    padding: 20px;
+    justify-content: center;
+
+}
+.nav a{
+    padding-right: 20px;
+}
