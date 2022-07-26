@@ -4,13 +4,14 @@ import {
     Button,
     Checkbox,
     FormControl,
-    FormControlLabel, FormGroup, Grid,
+    FormControlLabel, FormGroup, IconButton, Input, InputAdornment, InputLabel,
     Paper, TextField
 } from "@mui/material";
 import {NavLink, Navigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Login.module.css'
 import {loginTC} from "../../bll/authReducer";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export const Login = () => {
     const dispatch = useAppDispatch()
@@ -39,21 +40,22 @@ export const Login = () => {
         },
         onSubmit: values => {
             dispatch(loginTC(values));
+            formik.resetForm();
         },
     })
-
-    // const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
-    //     // password: '',
-    //     // showPassword: false,
-    // });
-
+    //eye
+    const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
+        password: '',
+        showPassword: false,
+    });
+    //eye
     const handleClickShowPassword = () => {
-        //setValuesPassword({
-        // ...valuesPassword,
-        // showPassword: !valuesPassword.showPassword,
-        // });
+        setValuesPassword({
+            ...valuesPassword,
+            showPassword: !valuesPassword.showPassword,
+        });
     };
-
+    //eye
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
@@ -68,82 +70,73 @@ export const Login = () => {
                 <p className={s.title}>Sign In</p>
                 {/*//оборачиваем наши все формы тегом form..*/}
                 <form onSubmit={formik.handleSubmit}>
-                    <FormControl>
-                        <FormGroup>
-                            <TextField label="Email"
-                                       color="secondary"
-                                       margin="normal" {...formik.getFieldProps('email')} />
-
-                            {formik.touched.email && formik.errors.email &&
-                                <div style={{color: "red"}}>{formik.errors.email}</div>}
-
-                            <TextField type="password"
-                                       color="secondary"
-                                       label="Password" {...formik.getFieldProps('password')}
-                                       margin="normal"
-                            />
-                            {formik.touched.password && formik.errors.password &&
-                                <div style={{color: "red"}}>{formik.errors.password}</div>}
-
-
-                            <FormControlLabel label={'Remember me'}
-                                              control={<Checkbox color="secondary"
-                                                                 {...formik.getFieldProps('rememberMe')}
-                                                                 checked={formik.values.rememberMe}/> //благодаря этой строке чекбокс тоже сбрасывается
-                                              }/>
-
-                            <NavLink className={s.textLink} to={'/recover-password'}>Forgot Password</NavLink>
-
-                            <Button type={'submit'} variant={'contained'} color={'primary'}>
-                                Sign In
-                            </Button>
-                            <p> Don’t have an account?</p>
-                            <NavLink to={'/register'}>Sign Up</NavLink>
-                            {/*<ErrorSnackbar/>*/}
-                        </FormGroup>
+                    {/* FormControl-задает размеры и параметы полей инпутов-для каждого свой*/}
+                    <FormControl variant="standard" sx={{m: 1, mt: 1, width: '30ch'}}>
+                        {/*//email*/}
+                        <TextField
+                            className={s.input}
+                            id="email"
+                            label="Email"
+                            variant="standard"
+                            color="secondary"
+                            margin="normal" {...formik.getFieldProps('email')}
+                        />
+                        {formik.touched.email && formik.errors.email &&
+                            <div style={{color: "red"}}>{formik.errors.email}</div>}
                     </FormControl>
+
+                    {/*//eye-password*/}
+                    <FormControl variant="standard" sx={{m: 1, mt: 1, width: '30ch'}}>
+                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <Input
+                            id="password"
+                            type={valuesPassword.showPassword ? 'text' : 'password'}
+                            placeholder={'Password'}
+                            className={s.input}
+                            color="secondary"
+                            {...formik.getFieldProps('password')}
+                            autoComplete="on"
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {valuesPassword.showPassword ? <Visibility/> :  <VisibilityOff/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
+
+                    {/*           ////end eye*/}
+
+                    {formik.touched.password && formik.errors.password &&
+                        <div style={{color: "red"}}>{formik.errors.password}</div>}
+
+                    <FormControl variant="standard" sx={{m: 1, mt: 1, width: '30ch'}}>
+                    <FormControlLabel label={'Remember me'}
+                                      control={<Checkbox color="secondary"
+                                                         {...formik.getFieldProps('rememberMe')}
+                                                         checked={formik.values.rememberMe}/> //благодаря этой строке чекбокс тоже сбрасывается
+                                      }/>
+
+                    </FormControl>
+                    <NavLink className={s.textLink} to={'/recover-password'}>Forgot Password</NavLink>
+
+                    <Button className={s.btn} type={'submit'} variant={'contained'} color={'secondary'}>
+                        Sign In
+                    </Button>
                 </form>
+                    <p> Don’t have an account?</p>
+                    <NavLink to={'/registration'}>Sign Up</NavLink>
+                    {/*<ErrorSnackbar/>*/}
+
+
+
             </Paper>
         </div>
 
-//
-//
-//                     <Input
-//                         id="password"
-//                         // type={valuesPassword.showPassword ? 'text' : 'password'}
-//                         placeholder={'Password'}
-//                         className={s.input}
-//                         color="secondary"
-//                         {...formik.getFieldProps('password')}
-//                         autoComplete="on"
-//                         endAdornment={
-//                             <InputAdornment position="end">
-//                                 <IconButton
-//                                     onClick={handleClickShowPassword}
-//                                     onMouseDown={handleMouseDownPassword}
-//                                 >
-//                                     {/*{valuesPassword.showPassword ? <VisibilityOff/> : <Visibility/>}*/}
-//                                 </IconButton>
-//                             </InputAdornment>
-//                         }
-//                     />
-//                 </FormControl>
-//                 {formik.errors.password && formik.touched.password &&
-//                     // <div className={error.error}>{formik.errors.password}</div>
-//                 ''}
-//
-//                 <FormControlLabel label={'Remember me'}
-//                                   control={<Checkbox color="secondary"
-//                                                      checked={formik.values.rememberMe}
-//                                                      {...formik.getFieldProps('rememberMe')}
-//                                   />
-//                                   }/>
-//                 <NavLink className={s.textLink} to={'/recover-password'}>Forgot Password</NavLink>
-//                 <Button color="secondary" variant={'contained'} type="submit">Login</Button>
-//                 Don’t have an account?
-//                 <NavLink to={'/register'}>Sign Up</NavLink>
-//             </form>
-//         </div>
     )
 };
 

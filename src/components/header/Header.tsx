@@ -8,8 +8,8 @@ export const Header = () => {
 
             <div className={s.item}><NavLink to={'/'} className={({isActive}) =>
                 isActive ? s.active : s.item}>Login</NavLink></div>
-            {/*<div className={s.item}><NavLink to={'/register'} className={({isActive}) =>*/}
-            {/*    isActive ? s.active : s.item}>Registration</NavLink></div>*/}
+            <div className={s.item}><NavLink to={'/register'} className={({isActive}) =>
+                isActive ? s.active : s.item}>Registration</NavLink></div>
             {/*<div className={s.item}><NavLink to={'/forgot'} className={({isActive}) =>*/}
             {/*    isActive ? s.active : s.item}>Forgot</NavLink></div>*/}
             <div className={s.item}><NavLink to={'/profile'} className={({isActive}) =>
