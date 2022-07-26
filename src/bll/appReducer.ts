@@ -1,8 +1,6 @@
-
-
-
 const initialState = {
     status: false, //крутилка
+    error: null as null | string
 }
 
 
@@ -12,6 +10,8 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     switch (action.type) {
         case 'APP-STATUS':
             return {...state, status: action.value}
+        case 'APP-ERROR':
+            return {...state, error: action.value}
 
 
         default:
@@ -20,6 +20,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 }
 
 export const setStatusAC = (value: boolean) => ({type: 'APP-STATUS', value} as const);
+export const setErrorAC = (value:string | null) => ({type: 'APP-ERROR', value} as const);
 
 
 // // thunks
@@ -39,7 +40,6 @@ export const setStatusAC = (value: boolean) => ({type: 'APP-STATUS', value} as c
 // }
 
 
-
-
 export type ActionsType = ReturnType<typeof setStatusAC>
+    | ReturnType<typeof setErrorAC>
 

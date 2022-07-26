@@ -12,6 +12,7 @@ import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Login.module.css'
 import {loginTC} from "../../bll/authReducer";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {ErrorSnackbar} from "../../common/ErrorSnackbar/ErrorSnackbar";
 
 export const Login = () => {
     const dispatch = useAppDispatch()
@@ -130,7 +131,7 @@ export const Login = () => {
                 </form>
                     <p> Don’t have an account?</p>
                     <NavLink to={'/registration'}>Sign Up</NavLink>
-                    {/*<ErrorSnackbar/>*/}
+                    <ErrorSnackbar/>
 
 
 

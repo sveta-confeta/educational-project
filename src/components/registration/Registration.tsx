@@ -1,31 +1,23 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {loginTC} from "../../bll/authReducer";
 import {Navigate, NavLink} from "react-router-dom";
 import s from "../login/Login.module.css";
-import {
-    Button,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    IconButton,
-    Input,
-    InputAdornment,
-    InputLabel,
-    Paper,
-    TextField
-} from "@mui/material";
+import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Paper, TextField} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {useAppDispatch} from "../../bll/state";
+import {useAppDispatch, useAppSelector} from "../../bll/state";
+import {ErrorSnackbar} from "../../common/ErrorSnackbar/ErrorSnackbar";
+import {setRegistrTC} from "../../bll/registrReducer";
 
 const Registration = () => {
     const dispatch = useAppDispatch();
+    const registr=useAppSelector(state=> state.registr.isRegistered);
 
     const formik = useFormik({
         initialValues: {
             email: '',
-            password: '',
-            rememberMe: false
+            password1: '',
+            password2: '',
+
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -34,22 +26,31 @@ const Registration = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
-            if (!values.password) {
-                errors.password = 'Required';
-            } else if (values.password.length <= 7) {
-                errors.password = 'Password must be more than 7 characters...'
+            if (!values.password1) {
+                errors.password1 = 'Required';
+            } else if (values.password1.length <= 7) {
+                errors.password1 = 'Password must be more than 7 characters...'
+            }
+            if (!values.password2) {
+                errors.password2 = 'Required';
+            } else if (values.password2!==values.password2) { //сдесь изменения
+                errors.password2 = 'The password and confirmation password do not match'
             }
             return errors;
         },
         onSubmit: values => {
-            dispatch(loginTC(values));
+            dispatch(setRegistrTC(values));
             formik.resetForm();
         },
     })
-    //eye
-    const [valuesPassword, setValuesPassword] = React.useState<StatePassword>({
-        password: '',
-        showPassword: false,
+    //eye -2 стейта на 2а глаза
+    const [valuesPassword1, setValuesPassword1] = React.useState<StatePassword1>({
+        password1: '',
+        showPassword1: false,
+    });
+    const [valuesPassword2, setValuesPassword2] = React.useState<StatePassword2>({
+        password2: '',
+        showPassword2: false,
     });
     //eye
     const handleClickShowPassword = () => {
@@ -63,9 +64,9 @@ const Registration = () => {
         event.preventDefault();
     };
 
-    // if (isLoggedIn) {
-    //     return <Navigate to={'/profile'}/>
-    // }
+    if (registr) {
+        return <Navigate to={'/'}/>
+    }
 
     return (
         <div className={s.wrapper}>
@@ -111,8 +112,8 @@ const Registration = () => {
                             }
                         />
                     </FormControl>
-                    {formik.touched.password && formik.errors.password &&
-                        <div style={{color: "red"}}>{formik.errors.password}</div>}
+                    {formik.touched.password1 && formik.errors.password1 &&
+                        <div style={{color: "red"}}>{formik.errors.password1}</div>}
 
                     {/*//2eye-password*/}
                     <FormControl variant="standard" sx={{m: 1, mt: 1, width: '30ch'}}>
@@ -140,8 +141,8 @@ const Registration = () => {
 
                     {/*           ////end eye*/}
 
-                    {formik.touched.password && formik.errors.password &&
-                        <div style={{color: "red"}}>{formik.errors.password}</div>}
+                    {formik.touched.password2 && formik.errors.password2 &&
+                        <div style={{color: "red"}}>{formik.errors.password2}</div>}
 
 
 
@@ -151,7 +152,7 @@ const Registration = () => {
                 </form>
                 <p> Don’t have an account?</p>
                 <NavLink to={'/'}>Sign In</NavLink>
-                {/*<ErrorSnackbar/>*/}
+                <ErrorSnackbar/>
 
 
 
@@ -164,13 +165,19 @@ const Registration = () => {
 // types
 type FormikErrorType = {
     email?: string
-    password?: string
-    rememberMe?: false
+    password1?: string
+    password2?: string
+
 }
 
-type StatePassword = {
-    password: string;
-    showPassword: boolean;
+type StatePassword1 = {
+    password1: string;
+    showPassword1: boolean;
+}
+
+type StatePassword2 = {
+    password2: string;
+    showPassword2: boolean;
 }
 
 
