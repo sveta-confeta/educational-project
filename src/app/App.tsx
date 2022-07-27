@@ -24,9 +24,7 @@ function App() {
         )
 
     }
-    return (
-        <div>profile</div>
-    )
+
     return (
         <div className="App">
             <Header/>

@@ -1,5 +1,7 @@
 import React from 'react';
 import {useAppDispatch} from "../../bll/state";
+import s from './../login/Login.module.css'
+import {Paper} from "@mui/material";
 
 
 type ProfileType = {
@@ -9,10 +11,8 @@ type ProfileType = {
     activateEditMode?: () => void
 }
 
-export const Profile: React.FC<ProfileType> = ()=> {
+export const Profile: React.FC<ProfileType> = () => {
     const dispatch = useAppDispatch();
-    return(<>
-        </>)
 
 
     // const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
@@ -48,35 +48,35 @@ export const Profile: React.FC<ProfileType> = ()=> {
     //     return <Navigate to={'/login'}/>
     // }
     //
-    // return (
-    //     <div>
-    //         <Navbar/>
-    //         <div className={styles.wrapper}>
-    //             <div className={styles.form}>
-    //                 <span className={styles.title}>Profile Info</span>
-    //                 <div className={styles.container}>
-    //                     <InputTypeFile userAvatar={userAvatar} changeUserAvatar={changeUserAvatar}/>
-    //                     <div className={styles.nickname}>
-    //                         <EditableSpan
-    //                             title={userName}
-    //                             changeTitle={changeUserName}
-    //                             editMode={editMode}
-    //                             setEditMode={setEditMode}
-    //                         />
-    //                         <IconButton color={'secondary'}>
-    //                             <BorderColorIcon onClick={activateEditMode}/>
-    //                         </IconButton>
-    //                     </div>
-    //                     <div className={styles.cardPacksCount}>
-    //                         <div><b>E-mail: </b>{email}</div>
-    //                         <div><b>Card Packs: </b> {publicCardPacksCount}</div>
-    //                     </div>
-    //                 </div>
-    //                 <Button color={'secondary'} variant={'contained'} onClick={handleLogout}>Logout</Button>
-    //             </div>
-    //         </div>
-    //     </div>
-    // )
+    return (
+
+        <div className={s.wrapper}>
+
+            <Paper className={s.loginForm} elevation={3}>
+                <span className={s.title}>My profile</span>
+
+                {/*    <div className={s.container}>*/}
+                {/*        /!*<InputTypeFile userAvatar={userAvatar} changeUserAvatar={changeUserAvatar}/>*!/*/}
+                {/*        <div className={s.nickname}>*/}
+                {/*            <EditableSpan*/}
+                {/*                title={userName}*/}
+                {/*                changeTitle={changeUserName}*/}
+                {/*                editMode={editMode}*/}
+                {/*                setEditMode={setEditMode}*/}
+                {/*            />*/}
+                {/*            <IconButton color={'secondary'}>*/}
+                {/*                <BorderColorIcon onClick={activateEditMode}/>*/}
+                {/*            </IconButton>*/}
+                {/*        </div>*/}
+                {/*        <div className={styles.cardPacksCount}>*/}
+                {/*            <div><b>E-mail: </b>{email}</div>*/}
+                {/*            <div><b>Card Packs: </b> {publicCardPacksCount}</div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*    <Button color={'secondary'} variant={'contained'} onClick={handleLogout}>Logout</Button>*/}
+            </Paper>
+        </div>
+    )
 };
 
 

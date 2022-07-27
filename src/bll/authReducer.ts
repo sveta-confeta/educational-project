@@ -63,6 +63,20 @@ export const initializeTC = () => (dispatch: Dispatch) => {
         })
 }
 
+export const logautTC = () => (dispatch: Dispatch) => {
+    dispatch(setStatusAC(true))
+    authAPI.logout()
+        .then((res) => {
+            dispatch(loginAC(false))
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setStatusAC(false))
+        })
+}
+
 
 export type ActionsType = ReturnType<typeof loginAC>
     | ReturnType<typeof  initializedAC>

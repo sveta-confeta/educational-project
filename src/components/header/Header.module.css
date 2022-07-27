@@ -1,10 +1,27 @@
+.wrapper{
+    display: flex;
+    justify-content: space-around;
+    background-color: aquamarine;
+}
 .nav{
     display: flex;
-    background-color: aquamarine;
+
     padding: 20px;
     justify-content: center;
 
 }
 .nav a{
     padding-right: 20px;
+}
+
+.logautIcon{
+    background-image: url("./../../image/logout.png");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 20px;
+    background-position: center;
+    cursor: pointer;
+
 }
