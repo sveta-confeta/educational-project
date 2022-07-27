@@ -1,4 +1,5 @@
-import React  from 'react';
+import React from 'react';
+import {useAppDispatch} from "../../bll/state";
 
 
 type ProfileType = {
@@ -9,10 +10,11 @@ type ProfileType = {
 }
 
 export const Profile: React.FC<ProfileType> = ()=> {
-    return(
-        <div>profile</div>
-    )
-    // const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
+    return(<>
+        </>)
+
+
     // const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     // const userName = useAppSelector(state => state.profile.name)
     // const userAvatar = useAppSelector(state => state.profile.avatar)

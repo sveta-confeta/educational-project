@@ -29,7 +29,7 @@ export const registrationAC = (value: boolean) => ({type: 'REGISTATION', value} 
 // thunks
 export const setRegistrTC = (data: RegDataType) => (dispatch:Dispatch) => {
     dispatch(setStatusAC(true))
-    registerAPI.register(data)
+    registerAPI.register({email: data.email, password: data.password})
         .then((res) => {
             dispatch(registrationAC(true))
         })

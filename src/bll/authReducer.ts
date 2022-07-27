@@ -6,7 +6,9 @@ import {setStatusAC} from "./appReducer";
 
 
 const initialState = {
-    isLoggedIn: false,
+    isLoggedIn: false,//изначально не залогинены
+    isInitialized: false,//изначально не заинициализированны
+
 }
 
 
@@ -16,6 +18,8 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
         case 'LOGIN':
             return {...state, isLoggedIn: action.value}
+        case 'INITIALIZED':
+            return {...state, isInitialized: action.value}
 
 
         default:
@@ -24,26 +28,42 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 }
 
 export const loginAC = (value: boolean) => ({type: 'LOGIN', value} as const);
+export const initializedAC = (value: boolean) => ({type: 'INITIALIZED', value} as const);
 
 
 // thunks
-export const loginTC = (data: DataLoginType) => (dispatch:Dispatch) => {
+export const loginTC = (data: DataLoginType) => (dispatch: Dispatch) => {
     dispatch(setStatusAC(true))
     authAPI.login(data)
         .then((res) => {
             dispatch(loginAC(true))
-           // dispatch(setUserDataAC(res.data))
+            // dispatch(setUserDataAC(res.data))
         })
-        .catch((error: AxiosError<{error: string }>) => {
-           errorUtils(error, dispatch)
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
         })
         .finally(() => {
             dispatch(setStatusAC(false))
         })
 }
 
-
+export const initializeTC = () => (dispatch: Dispatch) => {
+    dispatch(setStatusAC(true))
+    authAPI.authMe()
+        .then((res) => {
+            dispatch(loginAC(true))
+            // dispatch(setUserDataAC(res.data))
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setStatusAC(false))
+            dispatch(initializedAC(true))
+        })
+}
 
 
 export type ActionsType = ReturnType<typeof loginAC>
+    | ReturnType<typeof  initializedAC>
 

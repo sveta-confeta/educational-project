@@ -15,7 +15,7 @@ const Registration = () => {
     const formik = useFormik({
         initialValues: {
             email: '',
-            password1: '',
+            password: '',
             password2: '',
 
         },
@@ -26,14 +26,14 @@ const Registration = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
-            if (!values.password1) {
-                errors.password1 = 'Required';
-            } else if (values.password1.length <= 7) {
-                errors.password1 = 'Password must be more than 7 characters...'
+            if (!values.password) {
+                errors.password = 'Required';
+            } else if (values.password.length <= 7) {
+                errors.password = 'Password must be more than 7 characters...'
             }
             if (!values.password2) {
                 errors.password2 = 'Required';
-            } else if (values.password2!==values.password2) { //сдесь изменения
+            } else if (values.password!==values.password2) { //сдесь изменения
                 errors.password2 = 'The password and confirmation password do not match'
             }
             return errors;
@@ -45,7 +45,7 @@ const Registration = () => {
     })
     //eye -2 стейта на 2а глаза
     const [valuesPassword1, setValuesPassword1] = React.useState<StatePassword1>({
-        password1: '',
+        password: '',
         showPassword1: false,
     });
     const [valuesPassword2, setValuesPassword2] = React.useState<StatePassword2>({
@@ -53,16 +53,23 @@ const Registration = () => {
         showPassword2: false,
     });
     //eye
-    const handleClickShowPassword = () => {
-        setValuesPassword({
-            ...valuesPassword,
-            showPassword: !valuesPassword.showPassword,
+    const handleClickShowPassword1 = () => {
+        setValuesPassword1({
+            ...valuesPassword1,
+            showPassword1: !valuesPassword1.showPassword1,
+        });
+    };
+    const handleClickShowPassword2 = () => {
+        setValuesPassword2({
+            ...valuesPassword2,
+            showPassword2: !valuesPassword2.showPassword2,
         });
     };
     //eye
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
+
 
     if (registr) {
         return <Navigate to={'/'}/>
@@ -94,7 +101,7 @@ const Registration = () => {
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="password"
-                            type={valuesPassword.showPassword ? 'text' : 'password'}
+                            type={valuesPassword1.showPassword1 ? 'text' : 'password'}
                             placeholder={'Password'}
                             className={s.input}
                             color="secondary"
@@ -103,36 +110,36 @@ const Registration = () => {
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
-                                        onClick={handleClickShowPassword}
+                                        onClick={handleClickShowPassword1}
                                         onMouseDown={handleMouseDownPassword}
                                     >
-                                        {valuesPassword.showPassword ? <Visibility/> :  <VisibilityOff/>}
+                                        {valuesPassword1.showPassword1 ? <Visibility/> :  <VisibilityOff/>}
                                     </IconButton>
                                 </InputAdornment>
                             }
                         />
                     </FormControl>
-                    {formik.touched.password1 && formik.errors.password1 &&
-                        <div style={{color: "red"}}>{formik.errors.password1}</div>}
+                    {formik.touched.password && formik.errors.password &&
+                        <div style={{color: "red"}}>{formik.errors.password}</div>}
 
                     {/*//2eye-password*/}
                     <FormControl variant="standard" sx={{m: 1, mt: 1, width: '30ch'}}>
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
-                            id="password"
-                            type={valuesPassword.showPassword ? 'text' : 'password'}
+                            id="password2"
+                            type={valuesPassword2.showPassword2 ? 'text' : 'password'}
                             placeholder={'Password'}
                             className={s.input}
                             color="secondary"
-                            {...formik.getFieldProps('password')}
+                            {...formik.getFieldProps('password2')}
                             autoComplete="on"
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
-                                        onClick={handleClickShowPassword}
+                                        onClick={handleClickShowPassword2}
                                         onMouseDown={handleMouseDownPassword}
                                     >
-                                        {valuesPassword.showPassword ? <Visibility/> :  <VisibilityOff/>}
+                                        {valuesPassword2.showPassword2 ? <Visibility/> :  <VisibilityOff/>}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -154,8 +161,6 @@ const Registration = () => {
                 <NavLink to={'/'}>Sign In</NavLink>
                 <ErrorSnackbar/>
 
-
-
             </Paper>
         </div>
 
@@ -165,13 +170,13 @@ const Registration = () => {
 // types
 type FormikErrorType = {
     email?: string
-    password1?: string
+    password?: string
     password2?: string
 
 }
 
 type StatePassword1 = {
-    password1: string;
+    password: string;
     showPassword1: boolean;
 }
 
