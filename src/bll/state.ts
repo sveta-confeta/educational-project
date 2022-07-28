@@ -6,12 +6,14 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {loginReducer} from "./authReducer";
 import {registrReducer} from "./registrReducer";
 import {appReducer} from "./appReducer";
+import {profileReducer} from "./profileReducer";
 
 
 const rootReducer = combineReducers({
     auth: loginReducer,
     registr: registrReducer,
     app:appReducer,
+    profile:profileReducer,
 
 })
 

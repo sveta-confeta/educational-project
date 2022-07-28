@@ -2,14 +2,14 @@ import React from 'react';
 import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../bll/state";
-import {logautTC} from "../../bll/authReducer";
+import {logoutTC} from "../../bll/authReducer";
 
 export const Header = () => {
     const dispatch = useAppDispatch();
-    const isLogin = useAppSelector(state => state.auth.isLoggedIn)
+    //const isLogin = useAppSelector(state => state.auth.isLoggedIn)
 
-    const logautHandler = () => {
-        dispatch(logautTC());
+    const logoutHandler = () => {
+        dispatch(logoutTC());
     }
     return (
         <div className={s.wrapper}>
@@ -32,7 +32,7 @@ export const Header = () => {
 
             </nav>
 
-            <button className={s.logautIcon} onClick={logautHandler}> </button>
+            <button className={s.logautIcon} onClick={logoutHandler}> </button>
 
         </div>
     );

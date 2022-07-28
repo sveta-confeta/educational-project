@@ -1,7 +1,8 @@
-import React from 'react';
-import {useAppDispatch} from "../../bll/state";
+import React, {useEffect} from 'react';
+import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './../login/Login.module.css'
 import {Paper} from "@mui/material";
+import { loginTC} from "../../bll/authReducer";
 
 
 type ProfileType = {
@@ -12,16 +13,14 @@ type ProfileType = {
 }
 
 export const Profile: React.FC<ProfileType> = () => {
-    const dispatch = useAppDispatch();
+     const dispatch = useAppDispatch();
+     const profile=useAppSelector(state=>state.profile)
+    // const isLogin = useAppSelector(state => state.auth.isLoggedIn)
 
+    // useEffect(() => {
+    //     dispatch(loginTC())
+    // }, [isLogin])
 
-    // const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    // const userName = useAppSelector(state => state.profile.name)
-    // const userAvatar = useAppSelector(state => state.profile.avatar)
-    // const userId = useAppSelector(state => state.profile._id)
-    // const email = useAppSelector(state => state.profile.email)
-    // const publicCardPacksCount = useAppSelector(state => state.profile.publicCardPacksCount)
-    //
     // const [editMode, setEditMode] = useState<boolean>(false)
     //
     // const activateEditMode = () => {
@@ -55,7 +54,11 @@ export const Profile: React.FC<ProfileType> = () => {
             <Paper className={s.loginForm} elevation={3}>
                 <span className={s.title}>My profile</span>
 
-                {/*    <div className={s.container}>*/}
+
+                {profile.avatar? profile.avatar : <img src={'https://moskva.bezformata.com/content/image493312821.jpg'}/>}
+                <p>Имя пользователя: {profile.name}</p>
+                <p>E-mail: {profile.email}</p>
+                <p>колличество моих коллод на сайте: {profile.publicCardPacksCount}</p>
                 {/*        /!*<InputTypeFile userAvatar={userAvatar} changeUserAvatar={changeUserAvatar}/>*!/*/}
                 {/*        <div className={s.nickname}>*/}
                 {/*            <EditableSpan*/}

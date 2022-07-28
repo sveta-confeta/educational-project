@@ -3,6 +3,7 @@ import {Dispatch} from "redux";
 import {AxiosError} from "axios";
 import {errorUtils} from "../common/utils/error-util";
 import {setStatusAC} from "./appReducer";
+import {setProfileAC} from "./profileReducer";
 
 
 const initialState = {
@@ -36,8 +37,8 @@ export const loginTC = (data: DataLoginType) => (dispatch: Dispatch) => {
     dispatch(setStatusAC(true))
     authAPI.login(data)
         .then((res) => {
+            debugger
             dispatch(loginAC(true))
-            // dispatch(setUserDataAC(res.data))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -52,7 +53,7 @@ export const initializeTC = () => (dispatch: Dispatch) => {
     authAPI.authMe()
         .then((res) => {
             dispatch(loginAC(true))
-            // dispatch(setUserDataAC(res.data))
+            dispatch(setProfileAC(res.data))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
@@ -63,7 +64,7 @@ export const initializeTC = () => (dispatch: Dispatch) => {
         })
 }
 
-export const logautTC = () => (dispatch: Dispatch) => {
+export const logoutTC = () => (dispatch: Dispatch) => {
     dispatch(setStatusAC(true))
     authAPI.logout()
         .then((res) => {
