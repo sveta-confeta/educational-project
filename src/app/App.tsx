@@ -9,6 +9,8 @@ import Registration from "../components/registration/Registration";
 import {initializeTC} from "../bll/authReducer";
 import {useAppDispatch, useAppSelector} from "../bll/state";
 import {Preloader} from "../common/loader/Loader";
+import {CheckEmail} from "../components/forgotPassword/CheckEmail";
+import {RecoverPassword} from "../components/forgotPassword/RecoverPassword";
 
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
                 <Route path={'/'} element={<Login/>}/>
                 <Route path={'/registration'} element={<Registration/>}/>
                 <Route path={'/profile'} element={<Profile/>}/>
+                <Route path={'/forgot'} element={<RecoverPassword/>}/>
+                <Route path={'/check-email/:email'} element={<CheckEmail/>}/>
 
 
                 {/*<Route path={'/*'} element={<NotFound/>}/>*/}

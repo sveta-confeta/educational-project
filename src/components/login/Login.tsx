@@ -123,7 +123,7 @@ export const Login = () => {
                                       }/>
 
                     </FormControl>
-                    <NavLink className={s.textLink} to={'/recover-password'}>Forgot Password</NavLink>
+                    <NavLink className={s.textLink} to={'/forgot'}>Forgot Password</NavLink>
 
                     <Button className={s.btn} type={'submit'} variant={'contained'} color={'secondary'}>
                         Sign In

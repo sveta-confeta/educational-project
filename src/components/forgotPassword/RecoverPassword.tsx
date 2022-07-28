@@ -1,9 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
-import styles from '../../styles/Authorization.module.css'
-import {Button, TextField} from '@mui/material';
-import {Link, useNavigate} from 'react-router-dom';
-import {recoverTC} from '../../bll/reducers/recover-password-reducer';
-import {useAppDispatch} from '../../bll/store';
+import s from './../login/Login.module.css'
+import {Button, Paper, TextField} from '@mui/material';
+import { NavLink, useNavigate} from 'react-router-dom';
+import {recoverTC} from "../../bll/recoverPasswordReducer";
+import {useAppDispatch} from "../../bll/state";
+
 
 export const RecoverPassword = React.memo(() => {
     const dispatch = useAppDispatch()
@@ -24,9 +25,9 @@ password recovery link: <a href='https://zouker.github.io/cards/#/set-new-passwo
     }
 
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.form}>
-                <div className={styles.title}>Forgot your password?</div>
+        <div className={s.wrapper}>
+            <Paper className={s.loginForm} elevation={3}>
+                <p className={s.title}>Forgot your password?</p>
                 <TextField
                     type="email"
                     id="standard-basic"
@@ -36,13 +37,14 @@ password recovery link: <a href='https://zouker.github.io/cards/#/set-new-passwo
                     onChange={emailEnter}
                     color={'secondary'}
                 />
-                <div className={styles.instructions}>Enter your email address and we will send you further
+                <div className={s.instructions}>Enter your email address and we will send you further
                     instructions
                 </div>
                 <Button color={'secondary'} variant={'contained'} onClick={emailSend}>Send Instructions</Button>
                 Did you remember your password?
-                <Link to={'/login'}>Try logging in</Link>
+                <NavLink to={'/'}>Try logging in</NavLink>
+            </Paper>
             </div>
-        </div>
+
     );
 });

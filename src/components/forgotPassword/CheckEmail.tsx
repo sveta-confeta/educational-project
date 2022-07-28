@@ -1,22 +1,23 @@
 import React from 'react';
-import styles from '../../styles/Authorization.module.css'
+import s from './../login/Login.module.css'
 import {Link, useParams} from 'react-router-dom';
-import Email from '../../assets/images/email.gif'
+import Email from './../../image/email.gif'
+import {Paper} from "@mui/material";
 
 export const CheckEmail = () => {
 
     const {email} = useParams()
     console.log(email)
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.form}>
+        <div className={s.wrapper}>
+            <Paper className={s.loginForm} elevation={3}>
                 <img src={Email} alt={'Email img'}/>
-                <div className={styles.title}>Check Email</div>
+                <div className={s.title}>Check Email</div>
                 We've sent an Email with instructions to <b>{email}</b>
-                <div className={styles.login}>
-                    <Link to={'/login'}>Sign In</Link>
+                <div className={s.login}>
+                    <Link to={'/'}>Sign In</Link>
                 </div>
-            </div>
+           </Paper>
         </div>
     );
 };
