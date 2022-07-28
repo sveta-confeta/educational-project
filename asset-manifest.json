@@ -1,15 +1,17 @@
 {
   "files": {
-    "main.css": "/friday-project/static/css/main.e6c13ad2.css",
-    "main.js": "/friday-project/static/js/main.98b5c913.js",
-    "static/js/787.7136d4b4.chunk.js": "/friday-project/static/js/787.7136d4b4.chunk.js",
-    "index.html": "/friday-project/index.html",
-    "main.e6c13ad2.css.map": "/friday-project/static/css/main.e6c13ad2.css.map",
-    "main.98b5c913.js.map": "/friday-project/static/js/main.98b5c913.js.map",
-    "787.7136d4b4.chunk.js.map": "/friday-project/static/js/787.7136d4b4.chunk.js.map"
+    "main.css": "/educational-project/static/css/main.0175e0ad.css",
+    "main.js": "/educational-project/static/js/main.0dff3734.js",
+    "static/js/787.7136d4b4.chunk.js": "/educational-project/static/js/787.7136d4b4.chunk.js",
+    "static/media/email.gif": "/educational-project/static/media/email.03343e0c37a5c10239d3.gif",
+    "static/media/loader.svg": "/educational-project/static/media/loader.8572528e3bb7fba100a03308123f02f5.svg",
+    "index.html": "/educational-project/index.html",
+    "main.0175e0ad.css.map": "/educational-project/static/css/main.0175e0ad.css.map",
+    "main.0dff3734.js.map": "/educational-project/static/js/main.0dff3734.js.map",
+    "787.7136d4b4.chunk.js.map": "/educational-project/static/js/787.7136d4b4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.98b5c913.js"
+    "static/css/main.0175e0ad.css",
+    "static/js/main.0dff3734.js"
   ]
 }
