@@ -15,8 +15,8 @@ export const RecoverPassword = React.memo(() => {
         setEmail(e.currentTarget.value)
     }
 
-    const message = `<div style="background-color: lime; padding: 15px">
-password recovery link: <a href='https://zouker.github.io/cards/#/set-new-password/$token$'>link</a></div>`
+    const message = `<div style="background-color: gold; padding: 15px">
+password recovery link: <a href='https://sveta-confeta.github.io/educational-project/#/set-new-password/$token$'>link</a></div>`
 
     const emailSend = () => {
         dispatch(recoverTC(email, message))

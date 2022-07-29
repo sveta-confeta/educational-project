@@ -13,7 +13,7 @@ export const CheckEmail = () => {
             <Paper className={s.loginForm} elevation={3}>
                 <img src={Email} alt={'Email img'}/>
                 <div className={s.title}>Check Email</div>
-                We've sent an Email with instructions to <b>{email}</b>
+                We're send an Email with instructions to <b>{email}</b>
                 <div className={s.login}>
                     <Link to={'/'}>Sign In</Link>
                 </div>
