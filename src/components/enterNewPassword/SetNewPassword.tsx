@@ -4,7 +4,6 @@ import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel, Pape
 import {Visibility, VisibilityOff} from '@mui/icons-material';
 
 import {Navigate, useParams} from 'react-router-dom';
-import error from '../../utils/Error.module.css'
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import {setInfoTC} from "../../bll/setNewPasswordReducer";
 import s from "../login/Login.module.css";
@@ -97,7 +96,7 @@ export const SetNewPassword = React.memo(() => {
                     />
                 </FormControl>
                 {formik.errors.password && formik.touched.password &&
-                    <div className={error.error}>{formik.errors.password}</div>}
+                    <div style={{color: "red"}}>{formik.errors.password}</div>}
 
                 <FormControl variant="standard">
                     <InputLabel color={'secondary'}>Confirm new
@@ -124,7 +123,7 @@ export const SetNewPassword = React.memo(() => {
                     />
                 </FormControl>
                 {formik.errors.password2 && formik.touched.password2 &&
-                    <div className={error.error}>{formik.errors.password2}</div>}
+                    <div style={{color: "red"}}>{formik.errors.password2}</div>}
                 <div className={s.instructions}>Create new password and we will send you further instructions to
                     email
                 </div>
