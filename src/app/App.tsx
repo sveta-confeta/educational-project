@@ -11,6 +11,7 @@ import {useAppDispatch, useAppSelector} from "../bll/state";
 import {Preloader} from "../common/loader/Loader";
 import {CheckEmail} from "../components/forgotPassword/CheckEmail";
 import {RecoverPassword} from "../components/forgotPassword/RecoverPassword";
+import {SetNewPassword} from "../components/enterNewPassword/SetNewPassword";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/forgot'} element={<RecoverPassword/>}/>
                 <Route path={'/check-email/:email'} element={<CheckEmail/>}/>
+                <Route path={'/set-new-password/:token'} element={<SetNewPassword/>}/>
 
 
                 {/*<Route path={'/*'} element={<NotFound/>}/>*/}
