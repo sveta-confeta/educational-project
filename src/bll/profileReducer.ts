@@ -19,7 +19,6 @@ export type infoProfileType = {
 type InitialStateType = typeof initialState
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-    debugger
     switch (action.type) {
         case 'SET-PROFILE': {
             return {...state, ...action.profile}

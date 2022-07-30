@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
-import s from './../login/Login.module.css'
+import s from './Profile.module.css'
 import {Paper} from "@mui/material";
-import { loginTC} from "../../bll/authReducer";
+import {initializeTC} from "../../bll/authReducer";
+import {Navigate} from "react-router-dom";
+import {EditableSpan} from "./EditableSpan";
 
 
 type ProfileType = {
@@ -13,15 +15,22 @@ type ProfileType = {
 }
 
 export const Profile: React.FC<ProfileType> = () => {
-     const dispatch = useAppDispatch();
-     const profile=useAppSelector(state=>state.profile)
-    // const isLogin = useAppSelector(state => state.auth.isLoggedIn)
+    const dispatch = useAppDispatch();
+    const profile = useAppSelector(state => state.profile)
+    const isLogin = useAppSelector(state => state.auth.isLoggedIn)
 
-    // useEffect(() => {
-    //     dispatch(loginTC())
-    // }, [isLogin])
+    useEffect(() => {
+        if (isLogin) {
+            dispatch(initializeTC())
+        }
 
-    // const [editMode, setEditMode] = useState<boolean>(false)
+    }, [isLogin])
+
+    if (!isLogin) {
+        return <Navigate to={'/'}/>
+    }
+
+
     //
     // const activateEditMode = () => {
     //     if (disabled) {
@@ -43,10 +52,7 @@ export const Profile: React.FC<ProfileType> = () => {
     //     dispatch(logoutTC())
     // }
     //
-    // if (!isLoggedIn) {
-    //     return <Navigate to={'/login'}/>
-    // }
-    //
+
     return (
 
         <div className={s.wrapper}>
@@ -54,29 +60,15 @@ export const Profile: React.FC<ProfileType> = () => {
             <Paper className={s.loginForm} elevation={3}>
                 <span className={s.title}>My profile</span>
 
+                {profile.avatar ? profile.avatar :
+                    <img src={'https://moskva.bezformata.com/content/image493312821.jpg'}/>}
+                <div className={s.userName}>
+                    <EditableSpan/>
+                </div>
+                <p className={s.text}>E-mail: {profile.email}</p>
+                <p className={s.text}>колличество моих коллод на сайте: {profile.publicCardPacksCount}</p>
 
-                {profile.avatar? profile.avatar : <img src={'https://moskva.bezformata.com/content/image493312821.jpg'}/>}
-                <p>Имя пользователя: {profile.name}</p>
-                <p>E-mail: {profile.email}</p>
-                <p>колличество моих коллод на сайте: {profile.publicCardPacksCount}</p>
-                {/*        /!*<InputTypeFile userAvatar={userAvatar} changeUserAvatar={changeUserAvatar}/>*!/*/}
-                {/*        <div className={s.nickname}>*/}
-                {/*            <EditableSpan*/}
-                {/*                title={userName}*/}
-                {/*                changeTitle={changeUserName}*/}
-                {/*                editMode={editMode}*/}
-                {/*                setEditMode={setEditMode}*/}
-                {/*            />*/}
-                {/*            <IconButton color={'secondary'}>*/}
-                {/*                <BorderColorIcon onClick={activateEditMode}/>*/}
-                {/*            </IconButton>*/}
-                {/*        </div>*/}
-                {/*        <div className={styles.cardPacksCount}>*/}
-                {/*            <div><b>E-mail: </b>{email}</div>*/}
-                {/*            <div><b>Card Packs: </b> {publicCardPacksCount}</div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*    <Button color={'secondary'} variant={'contained'} onClick={handleLogout}>Logout</Button>*/}
+
             </Paper>
         </div>
     )

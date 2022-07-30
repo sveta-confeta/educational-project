@@ -37,8 +37,8 @@ export const loginTC = (data: DataLoginType) => (dispatch: Dispatch) => {
     dispatch(setStatusAC(true))
     authAPI.login(data)
         .then((res) => {
-            debugger
             dispatch(loginAC(true))
+            dispatch(setProfileAC(res.data))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
