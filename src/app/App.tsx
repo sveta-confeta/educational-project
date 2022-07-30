@@ -22,6 +22,7 @@ function App() {
     useEffect(() => {
         dispatch(initializeTC())
     }, [])
+
     if (!initialize) {
         return (
             <Preloader/>

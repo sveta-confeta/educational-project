@@ -1,12 +1,17 @@
-import React, {ChangeEvent, useCallback, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {TextField} from '@mui/material';
-import {useAppSelector} from "../../bll/state";
+import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Profile.module.css'
+import {updateNameDataTC} from "../../bll/profileReducer";
 
 type PropsType = {}
 
 export const EditableSpan = React.memo((PropsType) => {
+    const dispatch = useAppDispatch()
+
     const userName = useAppSelector(state => state.profile.name);
+
+
     const [editMode, setEditMode] = useState<boolean>(false) //режим редактирования
     const [localTitle, setLocalTitle] = useState<string>(userName) //сохранение состояния инпута до отправки на сервер
 
@@ -20,19 +25,20 @@ export const EditableSpan = React.memo((PropsType) => {
     }
 
     const onDoubleClickHandler = () => {
+
         setEditMode(true);
     }
 
     const onBlurHandler = () => {
-
+        dispatch(updateNameDataTC(localTitle))
         setEditMode(false);
     }
 
-    // const onKeyPressHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    //     if (e.key === 'Enter') {
-    //         activateViewMode()
-    //     }
-    // }
+    const onKeyPressHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            onBlurHandler();
+        }
+    }
 
     return editMode
         ? <TextField

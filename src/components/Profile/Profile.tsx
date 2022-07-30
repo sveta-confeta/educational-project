@@ -5,6 +5,7 @@ import {Paper} from "@mui/material";
 import {initializeTC} from "../../bll/authReducer";
 import {Navigate} from "react-router-dom";
 import {EditableSpan} from "./EditableSpan";
+import {Preloader} from "../../common/loader/Loader";
 
 
 type ProfileType = {
@@ -16,46 +17,20 @@ type ProfileType = {
 
 export const Profile: React.FC<ProfileType> = () => {
     const dispatch = useAppDispatch();
+
     const profile = useAppSelector(state => state.profile)
     const isLogin = useAppSelector(state => state.auth.isLoggedIn)
-
-    useEffect(() => {
-        if (isLogin) {
-            dispatch(initializeTC())
-        }
-
-    }, [isLogin])
+    const status = useAppSelector(state => state.app.status)
 
     if (!isLogin) {
         return <Navigate to={'/'}/>
     }
 
 
-    //
-    // const activateEditMode = () => {
-    //     if (disabled) {
-    //         return
-    //     } else {
-    //         setEditMode(true)
-    //     }
-    // }
-    //
-    // const changeUserName = (name: string) => {
-    //     dispatch(updateUserDataTC({name: name, avatar: userAvatar, _id: userId, publicCardPacksCount, email}))
-    // }
-    //
-    // const changeUserAvatar = (avatar: string) => {
-    //     dispatch(updateUserDataTC({name: userName, avatar, _id: userId, publicCardPacksCount, email}))
-    // }
-    //
-    // const handleLogout = () => {
-    //     dispatch(logoutTC())
-    // }
-    //
-
     return (
 
         <div className={s.wrapper}>
+            {status === true && <Preloader/>}
 
             <Paper className={s.loginForm} elevation={3}>
                 <span className={s.title}>My profile</span>

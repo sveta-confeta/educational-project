@@ -6,7 +6,7 @@ import {logoutTC} from "../../bll/authReducer";
 
 export const Header = () => {
     const dispatch = useAppDispatch();
-    //const isLogin = useAppSelector(state => state.auth.isLoggedIn)
+
 
     const logoutHandler = () => {
         dispatch(logoutTC());
