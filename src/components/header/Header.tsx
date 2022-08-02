@@ -23,8 +23,8 @@ export const Header = () => {
                  isActive ? s.active : s.item}>Forgot</NavLink></div>
                 <div className={s.item}><NavLink to={'/profile'} className={({isActive}) =>
                     isActive ? s.active : s.item}>Profile</NavLink></div>
-                {/*<div className={s.item}><NavLink to={'/packs'} className={({isActive}) =>*/}
-                {/*    isActive ? s.active : s.item}>Packs</NavLink></div>*/}
+                <div className={s.item}><NavLink to={'/packs'} className={({isActive}) =>
+                    isActive ? s.active : s.item}>Packs</NavLink></div>
                 {/*<div className={s.item}><NavLink to={'/cards'} className={({isActive}) =>*/}
                 {/*    isActive ? s.active : s.item}>Cards</NavLink></div>*/}
                 {/*<div className={s.item}><NavLink to={'/error'} className={({isActive}) =>*/}

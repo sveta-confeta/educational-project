@@ -49,20 +49,21 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 
 // thunks
 export const getPacksTC = (): AppThunk => (dispatch, getState) => {
-
-    const {isMyPack, params} = getState().packs
-    const userId = getState().profile._id
-    dispatch(setStatusAC(false))
-    packsAPI.getPacks({
-        user_id: isMyPack ? userId : '',
-        ...params
-    })
+     const  params = getState().packs.params
+    // const userId = getState().profile._id
+    dispatch(setStatusAC(true))
+    packsAPI.getPacks(
+        params
+        // {
+        // user_id: isMyPack ? userId : '',
+        // ...params}
+    )
         .then((res) => {
             dispatch(getPacksAC(res.data.cardPacks))
-            dispatch(setPageAC(res.data.page))
-            dispatch(setPageCountAC(res.data.pageCount))
-            dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
-            dispatch(setMinMaxCountAC(res.data.minCardsCount, res.data.maxCardsCount))
+            // dispatch(setPageAC(res.data.page))
+            // dispatch(setPageCountAC(res.data.pageCount))
+            // dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
+            // dispatch(setMinMaxCountAC(res.data.minCardsCount, res.data.maxCardsCount))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)

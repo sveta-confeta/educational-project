@@ -1,0 +1,100 @@
+.wrapper {
+   max-width: 1200px;
+    margin: 0 auto;
+   padding-top: 60px;
+}
+
+.titleBlock{
+    display: flex;
+    justify-content: space-between;
+}
+/*.container {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin: 20px 0;*/
+/*    background: #FEFEFF;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);*/
+/*}*/
+.title {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 27px;
+}
+.btn{
+    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    border-radius: 30px !important;
+    padding: 8px 28px !important;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+}
+.sidebar {
+    width: 240px;
+    background-color: #E5E5E5;
+    border-radius: 8px 0 0 8px;
+}
+
+.sidebarBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    margin: 20px;
+}
+
+.rangeSlider {
+    margin: 35px 20px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 27px;
+}
+
+.pack {
+    text-decoration: none;
+    color: #7b1fa2;
+}
+
+.pack:hover {
+    font-weight: bold;
+}
+
+.paginatorBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selector {
+    display: flex;
+    align-items: center;
+}
+
+.buttonBlock {
+    display: flex;
+}
+
+.sortUp {
+    cursor: pointer;
+    background-image: url(../../image/up-arrow.png);
+    background-repeat: no-repeat;
+    background-position: 100% center;
+    padding-right: 35px !important;
+
+}
+
+.sortDown {
+    cursor: pointer;
+    background-image: url(../../image/down-arrow.png);
+    background-repeat: no-repeat;
+    background-position: 100% center;
+    padding-right: 35px !important;
+}

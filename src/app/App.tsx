@@ -12,6 +12,7 @@ import {Preloader} from "../common/loader/Loader";
 import {CheckEmail} from "../components/forgotPassword/CheckEmail";
 import {RecoverPassword} from "../components/forgotPassword/RecoverPassword";
 import {SetNewPassword} from "../components/enterNewPassword/SetNewPassword";
+import {Packs} from "../components/packs/Packs";
 
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
                 {/*    <Route index element={<SetNewPassword/>}/>*/}
                 {/*    <Route path={':token'} element={<SetNewPassword/>}/>*/}
                 {/*</Route>*/}
-                <Route path={'/packs'} element={<CheckEmail/>}/>
+                <Route path={'/packs'} element={<Packs/>}/>
 
 
                 {/*<Route path={'/*'} element={<NotFound/>}/>*/}

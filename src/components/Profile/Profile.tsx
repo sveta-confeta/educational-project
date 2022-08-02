@@ -3,7 +3,7 @@ import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Profile.module.css'
 import {Button, Paper} from "@mui/material";
 import {initializeTC} from "../../bll/authReducer";
-import {Navigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {EditableSpan} from "./EditableSpan";
 import {Preloader} from "../../common/loader/Loader";
 
@@ -22,17 +22,12 @@ export const Profile: React.FC<ProfileType> = () => {
     const isLogin = useAppSelector(state => state.auth.isLoggedIn)
     const status = useAppSelector(state => state.app.status)
 
-    const goPacksHandler=()=>{
-
-    }
-
     if (!isLogin) {
         return <Navigate to={'/'}/>
     }
 
 
     return (
-
 
 
         <div className={s.wrapper}>
@@ -48,9 +43,10 @@ export const Profile: React.FC<ProfileType> = () => {
                 </div>
                 <p className={s.text}>E-mail: {profile.email}</p>
                 <p className={s.text}>колличество моих коллод на сайте: {profile.publicCardPacksCount}</p>
-                <Button className={s.btn} onClick={goPacksHandler} variant={'contained'} color={'secondary'}>
-                    GO TO PACKS
-                </Button>
+
+                <div className={s.btn}><NavLink to={'/packs'} className={({isActive}) =>
+                    isActive ? s.active : s.item}>Packs</NavLink></div>
+
 
             </Paper>
         </div>
