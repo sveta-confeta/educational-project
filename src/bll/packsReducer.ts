@@ -1,4 +1,3 @@
-
 import {AxiosError} from 'axios';
 import {packsAPI, PackType} from "../api/packsAPI";
 import {setStatusAC} from "./appReducer";
@@ -13,7 +12,7 @@ const initialState = {
     maxCardsCount: 110,
     params: {
         page: 1,
-        pageCount: 10,
+        pageCount: 5,
         min: 0,
         max: 110,
         packName: '',
@@ -26,11 +25,11 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
     switch (action.type) {
         case 'packs/SET-PACKS':
             return {...state, cardPacks: action.packs}
-        case 'packs/SET-PAGE':
+        case 'packs/PAGE':
             return {...state, params: {...state.params, page: action.page}}
-        case 'packs/SET-PAGE-COUNT':
+        case 'packs/PAGE-COUNT':
             return {...state, params: {...state.params, pageCount: action.pageCount}}
-        case 'packs/SET-CARD-PACKS-TOTAL-COUNT':
+        case 'packs/TOTAL-COUNT':
             return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
         case 'packs/SET-MIN-MAX-COUNT':
             return {...state, minCardsCount: action.minCardsCount, maxCardsCount: action.maxCardsCount}
@@ -49,7 +48,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 
 // thunks
 export const getPacksTC = (): AppThunk => (dispatch, getState) => {
-     const  params = getState().packs.params
+    const params = getState().packs.params
     // const userId = getState().profile._id
     dispatch(setStatusAC(true))
     packsAPI.getPacks(
@@ -59,10 +58,10 @@ export const getPacksTC = (): AppThunk => (dispatch, getState) => {
         // ...params}
     )
         .then((res) => {
-            dispatch(getPacksAC(res.data.cardPacks))
-            // dispatch(setPageAC(res.data.page))
-            // dispatch(setPageCountAC(res.data.pageCount))
-            // dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
+            dispatch(getPacksAC(res.data.cardPacks)) //получение всех паксов
+            dispatch(pageAC(res.data.page))
+            dispatch(pageCountAC(res.data.pageCount))
+            dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
             // dispatch(setMinMaxCountAC(res.data.minCardsCount, res.data.maxCardsCount))
         })
         .catch((error: AxiosError<{ error: string }>) => {
@@ -129,10 +128,10 @@ export const updatePackTC = (id: string, name: string): AppThunk => {
 
 // actions
 export const getPacksAC = (packs: PackType[]) => ({type: 'packs/SET-PACKS', packs} as const)
-export const setPageAC = (page: number) => ({type: 'packs/SET-PAGE', page} as const)
-export const setPageCountAC = (pageCount: number) => ({type: 'packs/SET-PAGE-COUNT', pageCount} as const)
+export const pageAC = (page: number) => ({type: 'packs/PAGE', page} as const)
+export const pageCountAC = (pageCount: number) => ({type: 'packs/PAGE-COUNT', pageCount} as const)
 export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
-    type: 'packs/SET-CARD-PACKS-TOTAL-COUNT',
+    type: 'packs/TOTAL-COUNT',
     cardPacksTotalCount
 } as const)
 export const setMinMaxCountAC = (minCardsCount: number, maxCardsCount: number) => ({
@@ -163,8 +162,8 @@ export const sortPackAC = (sortPacks: string) => ({
 export type InitialStateType = typeof initialState
 type ActionType =
     ReturnType<typeof getPacksAC>
-    | ReturnType<typeof setPageAC>
-    | ReturnType<typeof setPageCountAC>
+    | ReturnType<typeof pageAC>
+    | ReturnType<typeof pageCountAC>
     | ReturnType<typeof setCardPacksTotalCountAC>
     | ReturnType<typeof setMinMaxCountAC>
     | ReturnType<typeof setMinMaxAC>

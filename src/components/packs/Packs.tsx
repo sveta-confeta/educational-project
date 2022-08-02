@@ -1,11 +1,24 @@
 import * as React from 'react';
 import {Navigate} from "react-router-dom";
-import {Button} from '@mui/material';
+import {
+    Button,
+    FormControl,
+    MenuItem,
+    Pagination,
+    PaginationItem,
+    Select,
+    SelectChangeEvent,
+    Stack,
+    TablePagination
+} from '@mui/material';
 import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Packs.module.css'
-import {getPacksTC} from "../../bll/packsReducer";
-import {useEffect} from "react";
+import {getPacksTC, pageAC, pageCountAC} from "../../bll/packsReducer";
+import {ChangeEvent, useEffect} from "react";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import InputLabel from '@mui/material/InputLabel';
 
 
 export const formatDate = (date: Date | string | number) => {
@@ -15,9 +28,9 @@ export const formatDate = (date: Date | string | number) => {
 export const Packs = React.memo(() => {
     //const navigate = useNavigate()
     const dispatch = useAppDispatch()
-    // const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
-    // const page = useAppSelector(state => state.packs.params.page)
-    // const pageCount = useAppSelector(state => state.packs.params.pageCount)
+    const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
+    const page = useAppSelector(state => state.packs.params.page)
+    const pageCount = useAppSelector(state => state.packs.params.pageCount)
     // const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     // const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
     // const min = useAppSelector(state => state.packs.params.min)
@@ -39,21 +52,8 @@ export const Packs = React.memo(() => {
     //     dispatch(isMyPackAC(true))
     // }
 
-    // // Packs Paginator
-    // const handleChangePage = (
-    //     event: React.MouseEvent<HTMLButtonElement> | null,
-    //     newPage: number,
-    // ) => {
-    //     dispatch(setPageAC(newPage + 1))
-    // };
 
-    // const handleChangeRowsPerPage = (
-    //     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    // ) => {
-    //     dispatch(setPageCountAC(Number(event.target.value)))
-    //     dispatch(setPageAC(1))
-    // };
-    //
+
     // // Min and Max scale of cards in pack
     // const handleChangeMinMax = (event: React.SyntheticEvent | Event, value: number | Array<number>) => {
     //     if (Array.isArray(value)) {
@@ -64,8 +64,19 @@ export const Packs = React.memo(() => {
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, []);
-       // [dispatch, debouncedValue, isMyPack, min, max, pageCount, page])
+    }, [page, pageCount]);
+
+
+    // Packs Paginator
+    const handleChangePage = () => {
+        dispatch(pageAC(page + 1))
+    };
+    const handleChange = (e: SelectChangeEvent) => {
+        dispatch(pageCountAC(Number(e.target.value)))
+    };
+    const actualPageCount = Math.ceil(cardPacksTotalCount / pageCount);
+
+    // [dispatch, debouncedValue, isMyPack, min, max, pageCount, page])
 
     // const returnToProfile = () => {
     //     navigate('/profile')
@@ -131,12 +142,36 @@ export const Packs = React.memo(() => {
 
 
                     <div className={s.paginatorBlock}>
-                        {/*<Pagination*/}
-                        {/*    count={cardPacksTotalCount}*/}
-                        {/*    page={page - 1}*/}
-                        {/*    onPageChange={handleChangePage}*/}
-                        {/*    rowsPerPage={pageCount}*/}
-                        {/*    onRowsPerPageChange={handleChangeRowsPerPage}/>*/}
+                        <Stack className={s.numberPagination} spacing={2}>
+                            <Pagination
+                                onChange={handleChangePage}
+                                color="secondary"
+                                count={actualPageCount}
+                                renderItem={(item) => (
+                                    <PaginationItem
+                                        components={{previous: ArrowBackIcon, next: ArrowForwardIcon}}
+                                        {...item}
+                                    />
+                                )}
+                            />
+                        </Stack>
+                        Show
+                        <FormControl sx={{m: 1, minWidth: 45}}>
+                            <Select
+                                labelId="demo-simple-select-autowidth-label"
+                                id="demo-simple-select-autowidth"
+                                value={String(pageCount)}
+                                onChange={handleChange}
+                            >
+                                <MenuItem value=''>
+                                </MenuItem>
+                                <MenuItem value={5}>5</MenuItem>
+                                <MenuItem value={10}>10</MenuItem>
+                                <MenuItem value={20}>20</MenuItem>
+                            </Select>
+                        </FormControl>
+                        cards per page
+
                     </div>
                 </div>
 
