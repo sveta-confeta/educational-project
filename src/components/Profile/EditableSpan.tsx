@@ -15,17 +15,12 @@ export const EditableSpan = React.memo((PropsType) => {
     const [editMode, setEditMode] = useState<boolean>(false) //режим редактирования
     const [localTitle, setLocalTitle] = useState<string>(userName) //сохранение состояния инпута до отправки на сервер
 
-    // const activateViewMode = useCallback(() => {
-    //     changeTitle(localTitle)
-    //     setEditMode(false)
-    // }, [changeTitle, localTitle])
-    //
+
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setLocalTitle(e.currentTarget.value)
     }
 
     const onDoubleClickHandler = () => {
-
         setEditMode(true);
     }
 
@@ -46,7 +41,7 @@ export const EditableSpan = React.memo((PropsType) => {
             variant="standard"
             value={localTitle}
             onChange={onChangeHandler}
-            // onKeyDown={onKeyPressHandler}
+            onKeyDown={onKeyPressHandler}
             onBlur={onBlurHandler}
             autoFocus
             color={'secondary'}

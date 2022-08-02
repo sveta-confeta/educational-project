@@ -40,11 +40,12 @@ function App() {
                 <Route path={'/profile'} element={<Profile/>}/>
                 <Route path={'/forgot'} element={<RecoverPassword/>}/>
                 <Route path={'/check-email/:email'} element={<CheckEmail/>}/>
-                {/*<Route path={'/set-new-password/:token'} element={<SetNewPassword/>}/>*/}
-                <Route path={'/set-new-password/'}>
-                    <Route index element={<SetNewPassword/>}/>
-                    <Route path={':token'} element={<SetNewPassword/>}/>
-                </Route>
+                <Route path={'/set-new-password/:token'} element={<SetNewPassword/>}/>
+                {/*<Route path={'/set-new-password/'}>*/}
+                {/*    <Route index element={<SetNewPassword/>}/>*/}
+                {/*    <Route path={':token'} element={<SetNewPassword/>}/>*/}
+                {/*</Route>*/}
+                <Route path={'/packs'} element={<CheckEmail/>}/>
 
 
                 {/*<Route path={'/*'} element={<NotFound/>}/>*/}

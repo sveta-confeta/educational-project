@@ -22,6 +22,7 @@ export const setNewPasswordReducer = (state: InitialStateType = initialState, ac
 
 // thunks
 export const setInfoTC = (newPasswordData: newPasswordType) => (dispatch: Dispatch) => {
+    debugger
     dispatch(setStatusAC(true))
     newPasswordAPI.sendNewPassword(newPasswordData)
         .then((res) => {

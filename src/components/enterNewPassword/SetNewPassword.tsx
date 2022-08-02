@@ -33,7 +33,8 @@ export const SetNewPassword = React.memo(() => {
             return errors;
         },
         onSubmit: values => {
-            token && dispatch(setInfoTC({password: values.password, resetPasswordToken: token}))
+            debugger
+            token && dispatch(setInfoTC({password: values.password, resetPasswordToken:token}))
         },
     })
 
