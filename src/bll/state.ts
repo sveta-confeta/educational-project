@@ -1,6 +1,6 @@
 import {AnyAction, applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
 
-import thunk, {ThunkDispatch} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {loginReducer} from "./authReducer";
@@ -9,6 +9,7 @@ import {appReducer} from "./appReducer";
 import {profileReducer} from "./profileReducer";
 import {recoverPasswordReducer} from "./recoverPasswordReducer";
 import {setNewPasswordReducer} from "./setNewPasswordReducer";
+import {packsReducer} from "./packsReducer";
 
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     profile:profileReducer,
     recovery:recoverPasswordReducer,
     newPassword:setNewPasswordReducer,
+    packs:packsReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -28,6 +30,7 @@ export type AppDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>;
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector //внутри типизация стейта всего приложения
 
 export const useAppDispatch = () => useDispatch<AppDispatch>()
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AnyAction>
 
 
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
