@@ -7,7 +7,7 @@ const instance = axios.create({
 })
 
 export const packsAPI = {
-    getPacks(params?: RequestGetPacksType) {
+    getPacks(params: RequestGetPacksType) {
         return instance.get<RequestGetPacksType, AxiosResponse<ResponseGetPacksType>>('/cards/pack', {params})
     },
     addPack(name: string, deckCover?: string, isPrivate?: boolean) {
@@ -54,7 +54,7 @@ export type PackType = {
 }
 
 export type ResponseGetPacksType = {
-    cardPacks: PackType[]
+    cardPacks: PackType[],
     page: number,
     pageCount: number,
     cardPacksTotalCount: number,

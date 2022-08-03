@@ -1,16 +1,13 @@
 import {useEffect, useState} from 'react';
 
-export default function useDebounce<T>(value: T, delay: number) {
+export default function useDebounce<T>(value: T, delay?: number):T {
     // Состояние и сеттер для отложенного значения
     const [debouncedValue, setDebouncedValue] = useState(value);
 
-    useEffect(
-        () => {
+    useEffect(() => {
             // Выставить debouncedValue равным value (переданное значение)
             // после заданной задержки
-            const handler = setTimeout(() => {
-                setDebouncedValue(value);
-            }, delay);
+            const handler = setTimeout(() => setDebouncedValue(value), delay);
 
             // Вернуть функцию очистки, которая будет вызываться каждый раз, когда ...
             // ... useEffect вызван снова. useEffect будет вызван снова, только если ...
@@ -23,12 +20,12 @@ export default function useDebounce<T>(value: T, delay: number) {
             // ... не менялось до тех пор, пока он не прекратит печатать дольше, чем 500ms.
             return () => {
                 clearTimeout(handler);
-            };
+            }
         },
         // Вызывается снова, только если значение изменится
         // мы так же можем добавить переменную "delay" в массива зависимостей ...
         // ... если вы собираетесь менять ее динамически.
-        [value]
+        [value,delay]
     );
 
     return debouncedValue;

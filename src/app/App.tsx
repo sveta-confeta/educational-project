@@ -13,6 +13,7 @@ import {CheckEmail} from "../components/forgotPassword/CheckEmail";
 import {RecoverPassword} from "../components/forgotPassword/RecoverPassword";
 import {SetNewPassword} from "../components/enterNewPassword/SetNewPassword";
 import {Packs} from "../components/packs/Packs";
+import {PageNoSearch} from "../components/packs/PageNoSearch";
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
                 {/*    <Route path={':token'} element={<SetNewPassword/>}/>*/}
                 {/*</Route>*/}
                 <Route path={'/packs'} element={<Packs/>}/>
+                <Route path={'/no-search'} element={<PageNoSearch/>}/>
 
 
                 {/*<Route path={'/*'} element={<NotFound/>}/>*/}

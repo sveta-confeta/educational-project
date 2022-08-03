@@ -18,7 +18,7 @@ import {getPacksTC, isMyPackAC, pageAC, pageCountAC} from "../../bll/packsReduce
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Search} from "../../common/searchField/SearchField";
-import useDebounce from '../../hooks/useDebounce';
+import useDebounce from "../../hooks/useDebounce";
 
 
 export const formatDate = (date: Date | string | number) => {
@@ -75,7 +75,7 @@ export const Packs = React.memo(() => {
     };
     const actualPageCount = Math.ceil(cardPacksTotalCount / pageCount);
 
-    // [dispatch, debouncedValue, isMyPack, min, max])
+    // [ min, max])
 
     // const returnToProfile = () => {
     //     navigate('/profile')

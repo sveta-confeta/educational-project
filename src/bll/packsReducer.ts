@@ -18,7 +18,7 @@ const initialState = {
         packName: '',
         sortPacks: '',
     },
-    isMyPack: false
+    isMyPack: false,
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -48,15 +48,11 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 
 // thunks
 export const getPacksTC = (): AppThunk => (dispatch, getState) => {
-    const params = getState().packs.params
-    // const userId = getState().profile._id
+    const params = getState().packs.params;
+    const isMyPack=getState().packs.isMyPack;
+    const userId = getState().profile._id //достаем свою сохраненную в профайле id. именно туда она идет при сохранении моих данных
     dispatch(setStatusAC(true))
-    packsAPI.getPacks(
-        params
-        // {
-        // user_id: isMyPack ? userId : '',
-        // ...params}
-    )
+    packsAPI.getPacks({user_id: isMyPack ? userId : '', ...params})
         .then((res) => {
             dispatch(getPacksAC(res.data.cardPacks)) //получение всех паксов
             dispatch(pageAC(res.data.page))
