@@ -18,7 +18,7 @@ import {getPacksTC, isMyPackAC, pageAC, pageCountAC} from "../../bll/packsReduce
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Search} from "../../common/searchField/SearchField";
-import useDebounce from "../../hooks/useDebounce";
+import {useDebounce} from "../../hooks/useDebounce";
 
 
 export const formatDate = (date: Date | string | number) => {
@@ -50,7 +50,7 @@ export const Packs = React.memo(() => {
     // };
 
     //for search:
-    const debouncedValue = useDebounce<string>(packName, 1000)
+    const debouncedValue = useDebounce<string>(packName, 3000)
 
     useEffect(() => {
         dispatch(getPacksTC())

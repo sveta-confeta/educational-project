@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ChangeEvent} from 'react';
+import {ChangeEvent, useState} from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,15 +16,17 @@ export const Search = React.memo(() => {
     // const {packId} = useParams<'packId'>();
     // const [isOpenModalAddNewPack, setIsOpenModalAddNewPack] = useState(false)
     // const [isOpenModalAddNewCard, setIsOpenModalAddNewCard] = useState(false)
-
     const packName = useAppSelector(state => state.packs.params.packName);
 
+    const[title,setTitle]=useState<string>(packName);
+    const[timerId,setTimerId]=useState<number>(0);
+
     const onChangeSearch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        dispatch(searchAC(e.currentTarget.value))
-
+        setTitle(e.currentTarget.value)
+        clearTimeout(timerId);
+        const id:number=+setTimeout(dispatch,3000,searchAC(e.currentTarget.value))
+        setTimerId(id);
     }
-
-
 
     return (
         <>
@@ -37,7 +39,7 @@ export const Search = React.memo(() => {
                     sx={{ml: 1, flex: 1}}
                     placeholder="Search pack`s name"
                     inputProps={{'aria-label': 'search'}}
-                    value={packName}
+                    value={title}
                     onChange={onChangeSearch}
                 />
                 <IconButton type="submit" sx={{p: '10px'}} aria-label="search">
