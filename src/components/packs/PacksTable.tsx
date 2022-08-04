@@ -5,7 +5,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import {NavLink, useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate, useParams} from 'react-router-dom';
 import s from './Packs.module.css'
 import {Button} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,15 +15,17 @@ import TableContainer from '@mui/material/TableContainer';
 import {formatDate} from './Packs';
 import {PackType} from '../../api/packsAPI';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
-import {setParamsSortPack} from "../../bll/packsReducer";
+import {deletePackTC, setParamsSortPack} from "../../bll/packsReducer";
 
 
 export const PacksTable = () => {
     const navigate = useNavigate()
-
+    const {id} = useParams()
+    //return state.filter(f => f.id !== action.todolistID)
      const packs = useAppSelector(state => state.packs.cardPacks)
     // const userId = useAppSelector(state => state.profile._id)
      const sort = useAppSelector(state => state.packs.params.sortPacks)
+    //const id=useAppSelector(state=>state.packs.cardPacks)
      const dispatch = useAppDispatch()
 
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
@@ -34,6 +36,10 @@ export const PacksTable = () => {
     const sortUpdate = (sortParams: string) => {
         return sort === `1${sortParams}` ? dispatch(setParamsSortPack(`0${sortParams}`)) : dispatch(setParamsSortPack(`1${sortParams}`));
 
+    }
+
+    const deleteHandler=(id:string)=>{
+        dispatch(deletePackTC(id));
     }
 
     const openModalDeletePack = (pack: PackType) => {
@@ -80,7 +86,8 @@ export const PacksTable = () => {
                                 <TableCell align="right">{formatDate(pack.updated)}</TableCell>
                                 <TableCell className={s.buttonBlock}>
                                     <Button
-                                        onClick={() => openModalDeletePack(pack)}
+                                        onClick={()=>deleteHandler(pack._id)}
+                                        // onClick={() => openModalDeletePack(pack)}
                                         // disabled={userId !== pack.user_id}
                                         color="error"
                                         size="small"

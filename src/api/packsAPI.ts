@@ -13,7 +13,7 @@ export const packsAPI = {
     addPack(name: string, deckCover?: string, isPrivate?: boolean) {
         return instance.post('/cards/pack', {cardsPack: {name, deckCover, private: isPrivate}})
     },
-    deletePack(id: string) {
+    deletePack(id?: string) {
         return instance.delete(`/cards/pack?id=${id}`)
     },
     updatePack(_id: string, name: string) {

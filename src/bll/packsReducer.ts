@@ -92,7 +92,7 @@ export const addPackTC = (name: string, deckCover?: string, isPrivate?: boolean)
     }
 }
 
-export const deletePackTC = (id: string): AppThunk => {
+export const deletePackTC = (id?: string): AppThunk => {
     return (dispatch) => {
         dispatch(setStatusAC(true))
         packsAPI.deletePack(id)
