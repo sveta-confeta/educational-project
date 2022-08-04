@@ -32,8 +32,6 @@ export type RequestGetPacksType = {
     user_id?: string
 }
 
-// export type PackTypeWithKeys = Record<'_id' | 'user_id' | 'user_name' | 'name' | 'path' | 'type', string>
-
 export type PackType = {
     _id: string,
     user_id: string,

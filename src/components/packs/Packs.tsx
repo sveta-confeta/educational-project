@@ -14,12 +14,11 @@ import {
 import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Packs.module.css'
-import {getPacksTC, isMyPackAC, pageAC, pageCountAC} from "../../bll/packsReducer";
+import {addPackTC, getPacksTC, isMyPackAC, pageAC, pageCountAC} from "../../bll/packsReducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Search} from "../../common/searchField/SearchField";
 import {RangeSlider} from "./RangeSlider";
-
 
 
 export const formatDate = (date: Date | string | number) => {
@@ -37,6 +36,7 @@ export const Packs = React.memo(() => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const min = useAppSelector(state => state.packs.params.min)
     const max = useAppSelector(state => state.packs.params.max)
+    const name=useAppSelector(state=>state.packs.name)
     //
     // const returnToProfile = () => {
     //     navigate('/profile')
@@ -46,7 +46,10 @@ export const Packs = React.memo(() => {
         dispatch(getPacksTC())
     }, [page, pageCount, packName, isMyPack, min, max]);
 
-
+    //button add pack
+    const addPackChange = () => {
+        dispatch(addPackTC(name))
+    }
     // All Packs and My Packs
     const allPacksHandler = () => {
         dispatch(isMyPackAC(false))
@@ -78,7 +81,7 @@ export const Packs = React.memo(() => {
                     <Button className={s.btn}
                             variant={'contained'}
                             color="secondary"
-                        // onClick={}
+                            onClick={addPackChange}
                     >
                         Add new pack
                     </Button>

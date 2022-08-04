@@ -14,7 +14,7 @@ export const RangeSlider = React.memo(() => {
 
     const [value, setValue] = React.useState<number | number[]>([min, max]);
 
-    const handleChangeMinMax = (event: React.SyntheticEvent | Event, value: number | Array<number>) => {
+    const handleChangeMinMax = (e: React.SyntheticEvent | Event, value: number | Array<number>) => {
         if (Array.isArray(value)) {
             dispatch(setMinMaxAC(value[0], value[1]));
             setValue([value[0], value[1]])
@@ -27,7 +27,6 @@ export const RangeSlider = React.memo(() => {
                 color={'secondary'}
                 valueLabelDisplay="on"
                 disableSwap
-
                 value={value}
                 onChange={(e, newValue) => setValue(newValue)}
                 onChangeCommitted={handleChangeMinMax}

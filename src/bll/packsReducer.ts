@@ -19,6 +19,7 @@ const initialState = {
         sortPacks: '',
     },
     isMyPack: false,
+    name:'New pack',
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -31,9 +32,9 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
             return {...state, params: {...state.params, pageCount: action.pageCount}}
         case 'packs/TOTAL-COUNT':
             return {...state, cardPacksTotalCount: action.cardPacksTotalCount}
-        case 'packs/SET-MIN-MAX-COUNT':
+        case 'packs/MIN-MAX-COUNT':
             return {...state, minCardsCount: action.minCardsCount, maxCardsCount: action.maxCardsCount}
-        case 'packs/SET-MIN-MAX':
+        case 'packs/MIN-MAX':
             return {...state, params: {...state.params, min: action.min, max: action.max}}
         case 'packs/IS-MY-PACK':
             return {...state, isMyPack: action.isMyPack}
@@ -75,7 +76,8 @@ export const setParamsSortPack = (sortParams: string): AppThunk => dispatch => {
 
 
 export const addPackTC = (name: string, deckCover?: string, isPrivate?: boolean): AppThunk => {
-    return (dispatch) => {
+    return (dispatch,getState) => {
+        let name=getState().packs.name;
         dispatch(setStatusAC(true))
         packsAPI.addPack(name, deckCover, isPrivate)
             .then(() => {
@@ -131,12 +133,12 @@ export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) => ({
     cardPacksTotalCount
 } as const)
 export const setMinMaxCountAC = (minCardsCount: number, maxCardsCount: number) => ({
-    type: 'packs/SET-MIN-MAX-COUNT',
+    type: 'packs/MIN-MAX-COUNT',
     minCardsCount,
     maxCardsCount
 } as const)
 export const setMinMaxAC = (min: number, max: number) => ({
-    type: 'packs/SET-MIN-MAX',
+    type: 'packs/MIN-MAX',
     min,
     max
 } as const)
