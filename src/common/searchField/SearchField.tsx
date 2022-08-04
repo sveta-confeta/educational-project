@@ -23,10 +23,12 @@ export const Search = React.memo(() => {
 
     const onChangeSearch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setTitle(e.currentTarget.value)
-        clearTimeout(timerId);
-        const id:number=+setTimeout(dispatch,3000,searchAC(e.currentTarget.value))
+        const id:number=+setTimeout(dispatch,1000,searchAC(e.currentTarget.value))
         setTimerId(id);
+        clearTimeout(timerId);
+
     }
+
 
     return (
         <>
@@ -46,6 +48,8 @@ export const Search = React.memo(() => {
                     <SearchIcon/>
                 </IconButton>
             </Paper>
+
+
 
 
             <Toolbar style={{display: 'flex', justifyContent: 'space-between'}}>

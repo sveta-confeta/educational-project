@@ -18,7 +18,8 @@ import {getPacksTC, isMyPackAC, pageAC, pageCountAC} from "../../bll/packsReduce
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Search} from "../../common/searchField/SearchField";
-import {useDebounce} from "../../hooks/useDebounce";
+import {RangeSlider} from "./RangeSlider";
+
 
 
 export const formatDate = (date: Date | string | number) => {
@@ -31,30 +32,20 @@ export const Packs = React.memo(() => {
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const page = useAppSelector(state => state.packs.params.page)
     const pageCount = useAppSelector(state => state.packs.params.pageCount)
-    // const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
-    // const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-    // const min = useAppSelector(state => state.packs.params.min)
-    // const max = useAppSelector(state => state.packs.params.max)
     const isMyPack = useAppSelector(state => state.packs.isMyPack)
     const packName = useAppSelector(state => state.packs.params.packName)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-
-    // const [value, setValue] = React.useState<number | number[]>([min, max]);
-
-    // // Min and Max scale of cards in pack
-    // const handleChangeMinMax = (event: React.SyntheticEvent | Event, value: number | Array<number>) => {
-    //     if (Array.isArray(value)) {
-    //         dispatch(setMinMaxAC(value[0], value[1]));
-    //         setValue([value[0], value[1]])
-    //     }
-    // };
-
-    //for search:
-    const debouncedValue = useDebounce<string>(packName, 3000)
+    const min = useAppSelector(state => state.packs.params.min)
+    const max = useAppSelector(state => state.packs.params.max)
+    //
+    // const returnToProfile = () => {
+    //     navigate('/profile')
+    // }
 
     useEffect(() => {
         dispatch(getPacksTC())
-    }, [page, pageCount, packName, isMyPack, debouncedValue]);
+    }, [page, pageCount, packName, isMyPack, min, max]);
+
 
     // All Packs and My Packs
     const allPacksHandler = () => {
@@ -74,12 +65,6 @@ export const Packs = React.memo(() => {
         dispatch(pageCountAC(Number(e.target.value)))
     };
     const actualPageCount = Math.ceil(cardPacksTotalCount / pageCount);
-
-    // [ min, max])
-
-    // const returnToProfile = () => {
-    //     navigate('/profile')
-    // }
 
     if (!isLoggedIn) {
         return <Navigate to={'/'}/>
@@ -120,13 +105,7 @@ export const Packs = React.memo(() => {
                     <div className={s.numberCard}>
                         <p className={s.sidebarBlock}>Number of cards</p>
                         <div className={s.rangeSlider}>
-                            {/*<RangeSlider*/}
-                            {/*    min={minCardsCount}*/}
-                            {/*    max={maxCardsCount}*/}
-                            {/*    value={value}*/}
-                            {/*    onChange={(e, newValue) => setValue(newValue)}*/}
-                            {/*    onChangeCommitted={handleChangeMinMax}*/}
-                            {/*/>*/}
+                            <RangeSlider/>
                         </div>
                     </div>
 

@@ -58,7 +58,7 @@ export const getPacksTC = (): AppThunk => (dispatch, getState) => {
             dispatch(pageAC(res.data.page))
             dispatch(pageCountAC(res.data.pageCount))
             dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
-            // dispatch(setMinMaxCountAC(res.data.minCardsCount, res.data.maxCardsCount))
+            dispatch(setMinMaxCountAC(res.data.minCardsCount, res.data.maxCardsCount))
         })
         .catch((error: AxiosError<{ error: string }>) => {
             errorUtils(error, dispatch)
