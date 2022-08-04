@@ -14,7 +14,8 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import TableContainer from '@mui/material/TableContainer';
 import {formatDate} from './Packs';
 import {PackType} from '../../api/packsAPI';
-import {useAppSelector} from "../../bll/state";
+import {useAppDispatch, useAppSelector} from "../../bll/state";
+import {setParamsSortPack} from "../../bll/packsReducer";
 
 
 export const PacksTable = () => {
@@ -22,18 +23,18 @@ export const PacksTable = () => {
 
      const packs = useAppSelector(state => state.packs.cardPacks)
     // const userId = useAppSelector(state => state.profile._id)
-    // const sort = useAppSelector(state => state.packs.params.sortPacks)
-    // const dispatch = useAppDispatch()
+     const sort = useAppSelector(state => state.packs.params.sortPacks)
+     const dispatch = useAppDispatch()
 
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
     const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false)
     const [deletePackData, setDeletePackData] = useState<PackType | null>(null);
     const [updatePackData, setUpdatePackData] = useState<PackType | null>(null);
 
-    // const sortUpdate = (sortParams: string) => {
-    //     return sort === `1${sortParams}` ? dispatch(setParamsSortPack(`0${sortParams}`)) : dispatch(setParamsSortPack(`1${sortParams}`));
-    //
-    // }
+    const sortUpdate = (sortParams: string) => {
+        return sort === `1${sortParams}` ? dispatch(setParamsSortPack(`0${sortParams}`)) : dispatch(setParamsSortPack(`1${sortParams}`));
+
+    }
 
     const openModalDeletePack = (pack: PackType) => {
         setIsOpenModalDelete(true)
@@ -51,17 +52,17 @@ export const PacksTable = () => {
                 <Table sx={{minWidth: 400}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            {/*<TableCell onClick={() => sortUpdate('name')}*/}
-                            {/*           className={sort === '0name' ? styles.sortUp : styles.sortDown}>Name</TableCell>*/}
-                            {/*<TableCell align="right" onClick={() => sortUpdate('cardsCount')}*/}
-                            {/*           className={sort === '0cardsCount' ? styles.sortUp : styles.sortDown}>Cards</TableCell>*/}
-                            {/*<TableCell align="right" onClick={() => sortUpdate('user_name')}*/}
-                            {/*           className={sort === '0user_name' ? styles.sortUp : styles.sortDown}>Created*/}
-                            {/*    By</TableCell>*/}
-                            {/*<TableCell align="right" onClick={() => sortUpdate('updated')}*/}
-                            {/*           className={sort === '0updated' ? styles.sortUp : styles.sortDown}>Last*/}
-                            {/*    Updated</TableCell>*/}
-                            {/*<TableCell align="right">Actions</TableCell>*/}
+                            <TableCell onClick={() => sortUpdate('name')}
+                                       className={sort === '0name' ? s.sortUp : s.sortDown}>Name</TableCell>
+                            <TableCell align="right" onClick={() => sortUpdate('cardsCount')}
+                                       className={sort === '0cardsCount' ? s.sortUp : s.sortDown}>Cards</TableCell>
+                            <TableCell align="right" onClick={() => sortUpdate('user_name')}
+                                       className={sort === '0user_name' ? s.sortUp : s.sortDown}>Created
+                                By</TableCell>
+                            <TableCell align="right" onClick={() => sortUpdate('updated')}
+                                       className={sort === '0updated' ? s.sortUp : s.sortDown}>Last
+                                Updated</TableCell>
+                            <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
