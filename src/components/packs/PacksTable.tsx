@@ -5,7 +5,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import {NavLink, useNavigate, useParams} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import s from './Packs.module.css'
 import {Button} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -20,7 +20,8 @@ import {deletePackTC, setParamsSortPack} from "../../bll/packsReducer";
 
 export const PacksTable = () => {
     const navigate = useNavigate()
-    const {id} = useParams()
+
+
     //return state.filter(f => f.id !== action.todolistID)
      const packs = useAppSelector(state => state.packs.cardPacks)
     // const userId = useAppSelector(state => state.profile._id)
@@ -52,6 +53,7 @@ export const PacksTable = () => {
         setUpdatePackData(pack)
     }
 
+
     return (
         <>
             <TableContainer component={Paper}>
@@ -80,7 +82,9 @@ export const PacksTable = () => {
                                 <TableCell component="th" scope="row">
                                     <NavLink className={s.pack}
                                              to={`/cards/${pack._id}`}>{pack.name}</NavLink>
+
                                 </TableCell>
+
                                 <TableCell align="right">{pack.cardsCount}</TableCell>
                                 <TableCell align="right">{pack.user_name}</TableCell>
                                 <TableCell align="right">{formatDate(pack.updated)}</TableCell>

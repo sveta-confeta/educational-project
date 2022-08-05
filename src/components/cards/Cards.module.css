@@ -1,0 +1,32 @@
+.tableWrapper {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    margin-top: 60px;
+}
+
+.container {
+    margin: 20px 0;
+    border-radius: 8px;
+    width: 1008px;
+    overflow: auto;
+    height: 100%;
+    background: #FEFEFF;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.title {
+    text-align: center;
+}
+
+.paginatorBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
