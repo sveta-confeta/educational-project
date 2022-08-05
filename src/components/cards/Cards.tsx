@@ -3,21 +3,27 @@ import s from './Cards.module.css'
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
-import {getCardsTC} from "../../bll/cardsReducer";
+import {getCardsTC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cardsReducer";
+import {FormControl, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {pageCountAC} from "../../bll/packsReducer";
 
 
 export const Cards = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const userId = useAppSelector(state => state.profile._id)
+
     const cardsTotalCount = useAppSelector(state => state.cards.params.cardsTotalCount)
     const page = useAppSelector(state => state.cards.params.page)
     const pageCount = useAppSelector(state => state.cards.params.pageCount)
+
     const cardQuestion = useAppSelector(state => state.cards.params.cardQuestion)
     const cardAnswer = useAppSelector(state => state.cards.params.cardAnswer)
     const packUserId = useAppSelector(state => state.cards.packUserId)
 
-    const {packId} = useParams<'packId'>();
+    const {packId} = useParams();
 
   //  const [searchCardValue, setSearchCardValue] = React.useState('Question');
     // const handleChangeSearchCardValue = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -35,28 +41,22 @@ export const Cards = () => {
     // }
 
     // const debouncedValue = useDebounce((searchCardValue === 'Question') ? cardQuestion : cardAnswer, 1000)
-    //
-    // const handleChangePage = (
-    //     event: React.MouseEvent<HTMLButtonElement> | null,
-    //     newPage: number,
-    // ) => {
-    //     dispatch(setCardsPageAC(newPage + 1))
-    // };
+    //pagination
+     const handleChangePage = () => {
+        dispatch(setCardsPageAC(page + 1))
+    };
 
-    // const handleChangeRowsPerPage = (
-    //     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    // ) => {
-    //     dispatch(setCardsPageCountAC(Number(event.target.value)))
-    //     dispatch(setCardsPageAC(1))
-    // };
+    const handleChange = (e: SelectChangeEvent) => {
+        dispatch(setCardsPageCountAC(Number(e.target.value)))
+    };
+    const actualPageCount = Math.ceil(cardsTotalCount / pageCount);
 
     useEffect(() => {
         if (packId) {
             dispatch(getCardsTC(packId))
         }
     },
-        [packId]
-        // [dispatch, page, pageCount, debouncedValue]
+        [packId, page, pageCount,]
     );
 
     // const returnToPacks = () => {
@@ -79,14 +79,39 @@ export const Cards = () => {
                     {/*              onChange={handleChangeSearchCardValue}*/}
                     {/*/>*/}
                     <CardsTable/>
-                    {/*<div className={styles.paginatorBlock}>*/}
-                    {/*    <Pagination*/}
-                    {/*        count={cardsTotalCount}*/}
-                    {/*        page={page - 1}*/}
-                    {/*        onPageChange={handleChangePage}*/}
-                    {/*        rowsPerPage={pageCount}*/}
-                    {/*        onRowsPerPageChange={handleChangeRowsPerPage}/>*/}
-                    {/*</div>*/}
+
+                    <div className={s.paginatorBlock}>
+                        <Stack className={s.numberPagination} spacing={2}>
+                            <Pagination
+                                onChange={handleChangePage}
+                                color="secondary"
+                                count={actualPageCount}
+                                renderItem={(item) => (
+                                    <PaginationItem
+                                        components={{previous: ArrowBackIcon, next: ArrowForwardIcon}}
+                                        {...item}
+                                    />
+                                )}
+                            />
+                        </Stack>
+                        Show
+                        <FormControl sx={{m: 1, minWidth: 45}}>
+                            <Select
+                                labelId="demo-simple-select-autowidth-label"
+                                id="demo-simple-select-autowidth"
+                                value={String(pageCount)}
+                                onChange={handleChange}
+                            >
+                                <MenuItem value=''>
+                                </MenuItem>
+                                <MenuItem value={5}>5</MenuItem>
+                                <MenuItem value={10}>10</MenuItem>
+                                <MenuItem value={20}>20</MenuItem>
+                            </Select>
+                        </FormControl>
+                        cards per page
+
+                    </div>
                 </div>
             </div>
         </div>

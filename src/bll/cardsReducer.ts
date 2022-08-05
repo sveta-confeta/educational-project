@@ -53,7 +53,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 }
 
 // actions
-export const getCardsAC = (cards: CardType[]) => ({type: 'cards/GET-CARDS', cards,} as const)
+export const  getCardsAC = (cards: CardType[]) => ({type: 'cards/GET-CARDS', cards,} as const)
 export const setPackUserIdAC = (packUserId: string) => ({type: 'cards/SET-PACK-USER-ID', packUserId,} as const)
 export const setCardsPageAC = (page: number) => ({type: 'cards/SET-PAGE', page,} as const)
 export const setCardsPageCountAC = (pageCount: number) => ({type: 'cards/SET-PAGE-COUNT', pageCount,} as const)
@@ -83,9 +83,9 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => {
             .then((res) => {
                 dispatch(getCardsAC(res.data.cards))
                 // dispatch(setPackUserIdAC(res.data.packUserId))
-                // dispatch(setCardsPageAC(res.data.page))
-                // dispatch(setCardsPageCountAC(res.data.pageCount))
-                // dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
+                 dispatch(setCardsPageAC(res.data.page))
+                 dispatch(setCardsPageCountAC(res.data.pageCount))
+                 dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
             })
             .catch((error: AxiosError<{ error: string }>) => {
                 errorUtils(error, dispatch)
