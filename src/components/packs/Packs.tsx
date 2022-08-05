@@ -14,7 +14,7 @@ import {
 import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Packs.module.css'
-import {addPackTC, getPacksTC, isMyPackAC, pageAC, pageCountAC} from "../../bll/packsReducer";
+import {addPackTC, getPacksTC, isMyPackAC, pageAC, pageCountAC, searchAC} from "../../bll/packsReducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {Search} from "../../common/searchField/SearchField";
@@ -90,7 +90,9 @@ export const Packs = React.memo(() => {
 
                     <div className={s.search}>
                         Search:
-                        <Search/>
+                        <Search searchValue={packName}
+                        arg={searchAC}
+                        placeholder={"Search pack`s name"}/>
                     </div>
                     <div className={s.buttons}>
                         <p>Show packs cards </p>

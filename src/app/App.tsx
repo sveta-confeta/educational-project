@@ -13,7 +13,7 @@ import {CheckEmail} from "../components/forgotPassword/CheckEmail";
 import {RecoverPassword} from "../components/forgotPassword/RecoverPassword";
 import {SetNewPassword} from "../components/enterNewPassword/SetNewPassword";
 import {Packs} from "../components/packs/Packs";
-import {PageNoSearch} from "../components/packs/PageNoSearch";
+import {PageNoSearch} from "../components/cards/PageNoSearch";
 import {Cards} from "../components/cards/Cards";
 
 

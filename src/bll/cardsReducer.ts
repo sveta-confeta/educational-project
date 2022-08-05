@@ -15,6 +15,7 @@ const initialState = {
         cardsTotalCount: 0,
         cardQuestion: '',
         cardAnswer: '',
+        sortCards:'',
     },
     minGrade: 0,
     maxGrade: 6,

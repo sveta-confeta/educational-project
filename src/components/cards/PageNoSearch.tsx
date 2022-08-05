@@ -1,5 +1,5 @@
 import React from 'react';
-import s from "./Packs.module.css";
+import s from "../packs/Packs.module.css";
 import {Button} from "@mui/material";
 
 export const PageNoSearch = () => {

@@ -4,26 +4,30 @@ import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import {IconButton, Paper} from '@mui/material';
-import {useAppDispatch, useAppSelector} from "../../bll/state";
-import {searchAC} from "../../bll/packsReducer";
+import {useAppDispatch} from "../../bll/state";
 
 
+type SearchType={
+    searchValue:string,
+    arg:any,
+    placeholder:string,
+}
 
-export const Search = React.memo(() => {
+export const Search = React.memo((props:SearchType) => {
 
     const dispatch = useAppDispatch()
 
     // const {packId} = useParams<'packId'>();
     // const [isOpenModalAddNewPack, setIsOpenModalAddNewPack] = useState(false)
     // const [isOpenModalAddNewCard, setIsOpenModalAddNewCard] = useState(false)
-    const packName = useAppSelector(state => state.packs.params.packName);
 
-    const[title,setTitle]=useState<string>(packName);
+
+    const[title,setTitle]=useState<string>(props.searchValue);
     const[timerId,setTimerId]=useState<number>(0);
 
     const onChangeSearch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setTitle(e.currentTarget.value)
-        const id:number=+setTimeout(dispatch,1000,searchAC(e.currentTarget.value))
+        const id:number=+setTimeout(dispatch,1000,props.arg(e.currentTarget.value))
         setTimerId(id);
         clearTimeout(timerId);
 
@@ -39,7 +43,7 @@ export const Search = React.memo(() => {
             >
                 <InputBase
                     sx={{ml: 1, flex: 1}}
-                    placeholder="Search pack`s name"
+                    placeholder={props.placeholder}
                     inputProps={{'aria-label': 'search'}}
                     value={title}
                     onChange={onChangeSearch}

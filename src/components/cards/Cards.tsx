@@ -3,11 +3,12 @@ import s from './Cards.module.css'
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
-import {getCardsTC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cardsReducer";
+import {getCardsTC, searchQuestionAC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cardsReducer";
 import {FormControl, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {pageCountAC} from "../../bll/packsReducer";
+import {Search} from "../../common/searchField/SearchField";
 
 
 export const Cards = () => {
@@ -25,7 +26,7 @@ export const Cards = () => {
 
     const {packId} = useParams();
 
-  //  const [searchCardValue, setSearchCardValue] = React.useState('Question');
+    //  const [searchCardValue, setSearchCardValue] = React.useState('Question');
     // const handleChangeSearchCardValue = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     //     if (searchCardValue === 'Question') {
     //     //     dispatch(searchQuestionAC(e.currentTarget.value))
@@ -42,7 +43,7 @@ export const Cards = () => {
 
     // const debouncedValue = useDebounce((searchCardValue === 'Question') ? cardQuestion : cardAnswer, 1000)
     //pagination
-     const handleChangePage = () => {
+    const handleChangePage = () => {
         dispatch(setCardsPageAC(page + 1))
     };
 
@@ -52,11 +53,11 @@ export const Cards = () => {
     const actualPageCount = Math.ceil(cardsTotalCount / pageCount);
 
     useEffect(() => {
-        if (packId) {
-            dispatch(getCardsTC(packId))
-        }
-    },
-        [packId, page, pageCount,]
+            if (packId) {
+                dispatch(getCardsTC(packId))
+            }
+        },
+        [packId, page, pageCount,cardQuestion]
     );
 
     // const returnToPacks = () => {
@@ -70,14 +71,14 @@ export const Cards = () => {
             <div className={s.tableWrapper}>
                 <div className={s.container}>
                     <h1 className={s.title}>Cards name</h1>
-                    {/*<SearchAppBar radioValue={searchCardValue}*/}
-                    {/*              onChangeRadio={clearValue}*/}
-                    {/*              disabled={packUserId !== userId}*/}
-                    {/*              title={'Add new card'}*/}
-                    {/*              goBack={returnToPacks}*/}
-                    {/*              value={searchCardValue === 'Question' ? cardQuestion : cardAnswer}*/}
-                    {/*              onChange={handleChangeSearchCardValue}*/}
-                    {/*/>*/}
+
+                    <div className={s.search}>
+                        Search:
+                        <Search searchValue={cardQuestion}
+                                arg={searchQuestionAC}
+                                placeholder={'Search question'}/>
+                    </div>
+
                     <CardsTable/>
 
                     <div className={s.paginatorBlock}>
