@@ -3,11 +3,20 @@ import s from './Cards.module.css'
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
-import {getCardsTC, searchQuestionAC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cardsReducer";
-import {FormControl, MenuItem, Pagination, PaginationItem, Select, SelectChangeEvent, Stack} from "@mui/material";
+import {addCardTC, getCardsTC, searchQuestionAC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cardsReducer";
+import {
+    Button,
+    FormControl,
+    MenuItem,
+    Pagination,
+    PaginationItem,
+    Select,
+    SelectChangeEvent,
+    Stack
+} from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import {pageCountAC} from "../../bll/packsReducer";
+import {addPackTC, pageCountAC} from "../../bll/packsReducer";
 import {Search} from "../../common/searchField/SearchField";
 
 
@@ -66,6 +75,14 @@ export const Cards = () => {
     //     navigate('/packs')
     // }
 
+    //button add pack
+    const addCardChange = () => { //была тут ошибка string | undefined
+        if (packId){
+            dispatch( addCardTC(packId)) //захаркодить кнопку если id не мое
+        }
+
+    }
+
     return (
         <div>
             <div className={s.tableWrapper}>
@@ -78,6 +95,13 @@ export const Cards = () => {
                                 arg={searchQuestionAC}
                                 placeholder={'Search question'}/>
                     </div>
+                    <Button className={s.btn}
+                            variant={'contained'}
+                            color="secondary"
+                            onClick={addCardChange}
+                    >
+                        Add new card
+                    </Button>
 
                     <CardsTable/>
 

@@ -1,6 +1,6 @@
 
 import {AxiosError} from 'axios';
-import {cardsAPI, CardType} from "../api/cardsAPI";
+import {cardsAPI, CardType, NewCardType} from "../api/cardsAPI";
 import {AppThunk} from "./state";
 import {setStatusAC} from "./appReducer";
 import {errorUtils} from "../common/utils/error-util";
@@ -17,6 +17,8 @@ const initialState = {
         cardAnswer: '',
         sortCards:'',
     },
+    question:'new question',
+    answer:'как пройти в библиотеку',
     minGrade: 0,
     maxGrade: 6,
 }
@@ -97,21 +99,24 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => {
     }
 }
 
-// export const addCardTC = (newCard: NewCardType): AppThunk => {
-//     return (dispatch) => {
-//         dispatch(setAppStatusAC('loading'))
-//         cardsAPI.addCard(newCard)
-//             .then((res) => {
-//                 dispatch(getCardsTC(newCard.cardsPack_id))
-//             })
-//             .catch((error: AxiosError<{ error: string }>) => {
-//                 errorUtils(error, dispatch)
-//             })
-//             .finally(() => {
-//                 dispatch(setAppStatusAC('succeeded'))
-//             })
-//     }
-// }
+export const addCardTC = (cardsPack_id: string): AppThunk => {
+    return (dispatch,getState) => {
+        const question=getState().cards.question
+        const answer=getState().cards.answer
+
+        dispatch(setStatusAC(true))
+        cardsAPI.addCard(cardsPack_id,question,answer)
+            .then((res) => {
+                dispatch(getCardsTC(cardsPack_id))
+            })
+            .catch((error: AxiosError<{ error: string }>) => {
+                errorUtils(error, dispatch)
+            })
+            .finally(() => {
+                dispatch(setStatusAC(false))
+            })
+    }
+}
 
 // export const deleteCardTC = (cardId: string, packsId: string): AppThunk => {
 //     return (dispatch) => {
