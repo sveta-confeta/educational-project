@@ -3,16 +3,22 @@ import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import {Rating, TableCell} from '@mui/material';
+import {Button, Rating, TableCell} from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import s from './Cards.module.css';
 import TableContainer from '@mui/material/TableContainer';
-import {useAppSelector} from "../../bll/state";
-
+import {useAppDispatch, useAppSelector} from "../../bll/state";
+import DeleteIcon from '@mui/icons-material/Delete';
+import {deleteCardTC} from "../../bll/cardsReducer";
 
 export const CardsTable = () => {
-     // const userId = useAppSelector(state => state.profile._id)
-     const cards = useAppSelector(state => state.cards.cards)
+    const dispatch = useAppDispatch()
+    const userId = useAppSelector(state => state.profile._id)
+    const cards = useAppSelector(state => state.cards.cards)
+
+    const deleteCard=(cardId:string,packsId:string)=>{
+        dispatch(deleteCardTC(cardId, packsId));
+    }
 
     // const [deleteCardData, setDeleteCardData] = useState<CardType | null>(null);
     // const [updateCardData, setUpdateCardData] = useState<CardType | null>(null);
@@ -56,14 +62,16 @@ export const CardsTable = () => {
                                 </TableCell>
                                 {/*<TableCell align="right">{formatDate(card.updated)}</TableCell>*/}
                                 <TableCell className={s.buttonBlock}>
-                                    {/*<Button*/}
-                                    {/*    onClick={() => openModalDeleteCard(card)}*/}
-                                    {/*    disabled={userId !== card.user_id}*/}
-                                    {/*    color="error"*/}
-                                    {/*    size="small"*/}
-                                    {/*    startIcon={<DeleteIcon/>}>*/}
-                                    {/*    Delete*/}
-                                    {/*</Button>*/}
+                                    <Button
+                                        onClick={()=>deleteCard(card._id,card.cardsPack_id)}
+                                        // onClick={() => openModalDeleteCard(card)}
+                                        disabled={userId !== card.user_id}
+                                        color="error"
+                                        size="small"
+                                        startIcon={<DeleteIcon/>}>
+                                        Delete
+
+                                    </Button>
                                     {/*<Button*/}
                                     {/*    onClick={() => openModalUpdateCard(card)}*/}
                                     {/*    disabled={userId !== card.user_id}*/}

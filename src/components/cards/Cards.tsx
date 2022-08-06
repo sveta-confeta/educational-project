@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import s from './Cards.module.css'
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import {addCardTC, getCardsTC, searchQuestionAC, setCardsPageAC, setCardsPageCountAC} from "../../bll/cardsReducer";
@@ -18,6 +18,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {addPackTC, pageCountAC} from "../../bll/packsReducer";
 import {Search} from "../../common/searchField/SearchField";
+import {setDisabledAC} from "../../bll/appReducer";
+
+
 
 
 export const Cards = () => {
@@ -32,6 +35,7 @@ export const Cards = () => {
     const cardQuestion = useAppSelector(state => state.cards.params.cardQuestion)
     const cardAnswer = useAppSelector(state => state.cards.params.cardAnswer)
     const packUserId = useAppSelector(state => state.cards.packUserId)
+    const disabledStatus=useAppSelector(state=>state.app.disabledStatus)
 
     const {packId} = useParams();
 
@@ -75,13 +79,13 @@ export const Cards = () => {
     //     navigate('/packs')
     // }
 
-    //button add pack
+    //button add сard
     const addCardChange = () => { //была тут ошибка string | undefined
         if (packId){
-            dispatch( addCardTC(packId)) //захаркодить кнопку если id не мое
+            dispatch( addCardTC(packId))
         }
-
     }
+
 
     return (
         <div>
@@ -99,6 +103,7 @@ export const Cards = () => {
                             variant={'contained'}
                             color="secondary"
                             onClick={addCardChange}
+
                     >
                         Add new card
                     </Button>

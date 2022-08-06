@@ -1,6 +1,7 @@
 const initialState = {
     status: false, //крутилка
-    error: null as null | string
+    error: null as null | string,
+    disabledStatus: false,
 }
 
 
@@ -12,6 +13,8 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
             return {...state, status: action.value}
         case 'APP-ERROR':
             return {...state, error: action.value}
+        case 'APP-DISABLED':
+            return {...state, disabledStatus: action.value}
 
 
         default:
@@ -20,26 +23,13 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
 }
 
 export const setStatusAC = (value: boolean) => ({type: 'APP-STATUS', value} as const);
-export const setErrorAC = (value:string | null) => ({type: 'APP-ERROR', value} as const);
+export const setErrorAC = (value: string | null) => ({type: 'APP-ERROR', value} as const);
+export const setDisabledAC = (value: boolean) => ({type: 'APP-DISABLED', value} as const);
 
 
-// // thunks
-// export const loginTC = (data: DataLoginType) => (dispatch:Dispatch) => {
-//     //dispatch(setAppStatusAC('loading'))
-//     authAPI.login(data)
-//         .then((res) => {
-//             dispatch(loginAC(true))
-//            // dispatch(setUserDataAC(res.data))
-//         })
-//         .catch((error: AxiosError<{error: string }>) => {
-//            errorUtils(error, dispatch)
-//         })
-//         .finally(() => {
-//            // dispatch(setAppStatusAC(false))
-//         })
-// }
 
 
 export type ActionsType = ReturnType<typeof setStatusAC>
     | ReturnType<typeof setErrorAC>
+    | ReturnType<typeof setDisabledAC>
 

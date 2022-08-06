@@ -5,7 +5,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import {NavLink, useNavigate} from 'react-router-dom';
+import {Link, NavLink, useNavigate} from 'react-router-dom';
 import s from './Packs.module.css'
 import {Button} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -24,10 +24,11 @@ export const PacksTable = () => {
 
     //return state.filter(f => f.id !== action.todolistID)
      const packs = useAppSelector(state => state.packs.cardPacks)
-    // const userId = useAppSelector(state => state.profile._id)
+     const userId = useAppSelector(state => state.profile._id)
      const sort = useAppSelector(state => state.packs.params.sortPacks)
     //const id=useAppSelector(state=>state.packs.cardPacks)
      const dispatch = useAppDispatch()
+
 
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
     const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false)
@@ -80,8 +81,12 @@ export const PacksTable = () => {
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell component="th" scope="row">
-                                    <NavLink className={s.pack}
-                                             to={`/cards/${pack._id}`}>{pack.name}</NavLink>
+                                    <Link className={s.pack}
+                                             to={`/cards/${pack._id}`}>{pack.name}</Link>
+                                    {/*<Link to={{*/}
+                                    {/*    pathname: `/cards/${pack._id}`,*/}
+                                    {/*    propsSearch: {pack.user_id},*/}
+                                    {/*}}>{pack.name} </Link>*/}
 
                                 </TableCell>
 
@@ -92,7 +97,7 @@ export const PacksTable = () => {
                                     <Button
                                         onClick={()=>deleteHandler(pack._id)}
                                         // onClick={() => openModalDeletePack(pack)}
-                                        // disabled={userId !== pack.user_id}
+                                        disabled={userId !== pack.user_id}
                                         color="error"
                                         size="small"
                                         startIcon={<DeleteIcon/>}>
@@ -100,7 +105,7 @@ export const PacksTable = () => {
                                     </Button>
                                     <Button
                                         onClick={() => openModalUpdatePack(pack)}
-                                        // disabled={userId !== pack.user_id}
+                                        disabled={userId !== pack.user_id}
                                         color="secondary"
                                         size="small"
                                         startIcon={<BorderColorIcon/>}>
