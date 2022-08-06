@@ -1,4 +1,3 @@
-
 import {AxiosError} from 'axios';
 import {cardsAPI, CardType, NewCardType} from "../api/cardsAPI";
 import {AppThunk} from "./state";
@@ -8,17 +7,17 @@ import {errorUtils} from "../common/utils/error-util";
 const initialState = {
     cards: [] as CardType[],
     card: {} as CardType,
-    packUserId: '',
+    packUserId: '', //отдельно
     params: {
         page: 1,
         pageCount: 10,
         cardsTotalCount: 0,
         cardQuestion: '',
         cardAnswer: '',
-        sortCards:'',
+        sortCards: '',
     },
-    question:'new question',
-    answer:'как пройти в библиотеку',
+    question: 'new question',
+    answer: 'как пройти в библиотеку',
     minGrade: 0,
     maxGrade: 6,
 }
@@ -56,7 +55,7 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Act
 }
 
 // actions
-export const  getCardsAC = (cards: CardType[]) => ({type: 'cards/GET-CARDS', cards,} as const)
+export const getCardsAC = (cards: CardType[]) => ({type: 'cards/GET-CARDS', cards,} as const)
 export const setPackUserIdAC = (packUserId: string) => ({type: 'cards/SET-PACK-USER-ID', packUserId,} as const)
 export const setCardsPageAC = (page: number) => ({type: 'cards/SET-PAGE', page,} as const)
 export const setCardsPageCountAC = (pageCount: number) => ({type: 'cards/SET-PAGE-COUNT', pageCount,} as const)
@@ -85,10 +84,10 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => {
         cardsAPI.getCards(cardsPack_id, params)
             .then((res) => {
                 dispatch(getCardsAC(res.data.cards))
-                // dispatch(setPackUserIdAC(res.data.packUserId))
-                 dispatch(setCardsPageAC(res.data.page))
-                 dispatch(setCardsPageCountAC(res.data.pageCount))
-                 dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
+                dispatch(setPackUserIdAC(res.data.packUserId))
+                dispatch(setCardsPageAC(res.data.page))
+                dispatch(setCardsPageCountAC(res.data.pageCount))
+                dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
             })
             .catch((error: AxiosError<{ error: string }>) => {
                 errorUtils(error, dispatch)
@@ -100,12 +99,12 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => {
 }
 
 export const addCardTC = (cardsPack_id: string): AppThunk => {
-    return (dispatch,getState) => {
-        const question=getState().cards.question
-        const answer=getState().cards.answer
+    return (dispatch, getState) => {
+        const question = getState().cards.question
+        const answer = getState().cards.answer
 
         dispatch(setStatusAC(true))
-        cardsAPI.addCard(cardsPack_id,question,answer)
+        cardsAPI.addCard(cardsPack_id, question, answer)
             .then((res) => {
                 dispatch(getCardsTC(cardsPack_id))
             })
@@ -176,4 +175,4 @@ type ActionType =
     | ReturnType<typeof setCardsTotalCountAC>
     | ReturnType<typeof searchQuestionAC>
     | ReturnType<typeof searchAnswerAC>
-     //| ReturnType<typeof updateCardGradeAC>
+//| ReturnType<typeof updateCardGradeAC>

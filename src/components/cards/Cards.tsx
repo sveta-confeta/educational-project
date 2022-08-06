@@ -21,12 +21,11 @@ import {Search} from "../../common/searchField/SearchField";
 import {setDisabledAC} from "../../bll/appReducer";
 
 
-
-
 export const Cards = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const userId = useAppSelector(state => state.profile._id)
+    const packUserId = useAppSelector(state => state.cards.packUserId)
 
     const cardsTotalCount = useAppSelector(state => state.cards.params.cardsTotalCount)
     const page = useAppSelector(state => state.cards.params.page)
@@ -34,8 +33,7 @@ export const Cards = () => {
 
     const cardQuestion = useAppSelector(state => state.cards.params.cardQuestion)
     const cardAnswer = useAppSelector(state => state.cards.params.cardAnswer)
-    const packUserId = useAppSelector(state => state.cards.packUserId)
-    const disabledStatus=useAppSelector(state=>state.app.disabledStatus)
+    // const disabledStatus = useAppSelector(state => state.app.disabledStatus)
 
     const {packId} = useParams();
 
@@ -70,7 +68,7 @@ export const Cards = () => {
                 dispatch(getCardsTC(packId))
             }
         },
-        [packId, page, pageCount,cardQuestion]
+        [packId, page, pageCount, cardQuestion,packUserId]
     );
 
     // const returnToPacks = () => {
@@ -81,8 +79,8 @@ export const Cards = () => {
 
     //button add сard
     const addCardChange = () => { //была тут ошибка string | undefined
-        if (packId){
-            dispatch( addCardTC(packId))
+        if (packId) {
+            dispatch(addCardTC(packId))
         }
     }
 
@@ -103,7 +101,7 @@ export const Cards = () => {
                             variant={'contained'}
                             color="secondary"
                             onClick={addCardChange}
-
+                            disabled={userId!==packUserId}
                     >
                         Add new card
                     </Button>
