@@ -80,9 +80,7 @@ export const Packs = React.memo(() => {
         <div>
             <div className={s.wrapper}>
                 <div className={s.comeBack}>
-                    <svg width="16" height="11" viewBox="0 0 16 11" fill= "#7b1fa2" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 5.5H2M2 5.5L6.66667 1M2 5.5L6.66667 10" stroke="#7b1fa2" stroke-width="2"/>
-                    </svg>
+
                      <span className={s.span} onClick={returnToProfile}>Back to Profile</span>
 
                 </div>

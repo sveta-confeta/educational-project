@@ -1,5 +1,5 @@
 import {AxiosError} from 'axios';
-import {cardsAPI, CardType, NewCardType} from "../api/cardsAPI";
+import {cardsAPI, CardType} from "../api/cardsAPI";
 import {AppThunk} from "./state";
 import {setStatusAC} from "./appReducer";
 import {errorUtils} from "../common/utils/error-util";
@@ -7,7 +7,7 @@ import {errorUtils} from "../common/utils/error-util";
 const initialState = {
     cards: [] as CardType[],
     card: {} as CardType,
-    packUserId: '', //отдельно
+    packUserId: '',
     params: {
         page: 1,
         pageCount: 10,

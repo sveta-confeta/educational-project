@@ -5,7 +5,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import {Link, NavLink, useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import s from './Packs.module.css'
 import {Button} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -23,11 +23,11 @@ export const PacksTable = () => {
 
 
     //return state.filter(f => f.id !== action.todolistID)
-     const packs = useAppSelector(state => state.packs.cardPacks)
-     const userId = useAppSelector(state => state.profile._id)
-     const sort = useAppSelector(state => state.packs.params.sortPacks)
+    const packs = useAppSelector(state => state.packs.cardPacks)
+    const userId = useAppSelector(state => state.profile._id)
+    const sort = useAppSelector(state => state.packs.params.sortPacks)
     //const id=useAppSelector(state=>state.packs.cardPacks)
-     const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
 
 
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
@@ -40,7 +40,7 @@ export const PacksTable = () => {
 
     }
 
-    const deleteHandler=(id:string)=>{
+    const deleteHandler = (id: string) => {
         dispatch(deletePackTC(id));
     }
 
@@ -82,12 +82,7 @@ export const PacksTable = () => {
                             >
                                 <TableCell component="th" scope="row">
                                     <Link className={s.pack}
-                                             to={`/cards/${pack._id}`}>{pack.name}</Link>
-                                    {/*<Link to={{*/}
-                                    {/*    pathname: `/cards/${pack._id}`,*/}
-                                    {/*    propsSearch: {pack.user_id},*/}
-                                    {/*}}>{pack.name} </Link>*/}
-
+                                          to={`/cards/${pack._id}`}>{pack.name}</Link>
                                 </TableCell>
 
                                 <TableCell align="right">{pack.cardsCount}</TableCell>
@@ -95,7 +90,7 @@ export const PacksTable = () => {
                                 <TableCell align="right">{formatDate(pack.updated)}</TableCell>
                                 <TableCell className={s.buttonBlock}>
                                     <Button
-                                        onClick={()=>deleteHandler(pack._id)}
+                                        onClick={() => deleteHandler(pack._id)}
                                         // onClick={() => openModalDeletePack(pack)}
                                         disabled={userId !== pack.user_id}
                                         color="error"
