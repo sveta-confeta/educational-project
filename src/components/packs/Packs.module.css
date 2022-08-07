@@ -3,6 +3,14 @@
     margin: 0 auto;
    padding-top: 60px;
 }
+.span{
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 24px;
+    margin-left: 15px;
+    cursor:pointer;
+    color: #7b1fa2;
+}
 
 .titleBlock{
     display: flex;
