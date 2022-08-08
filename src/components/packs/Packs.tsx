@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {Navigate, useNavigate} from "react-router-dom";
 import {
     Button,
@@ -11,14 +11,15 @@ import {
     SelectChangeEvent,
     Stack
 } from '@mui/material';
-import {PacksTable} from './PacksTable';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Packs.module.css'
-import {addPackTC, getPacksTC, isMyPackAC, pageAC, pageCountAC, searchAC} from "../../bll/packsReducer";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import {getPacksTC, isMyPackAC, pageAC, pageCountAC, searchAC} from "../../bll/packsReducer";
 import {Search} from "../../common/searchField/SearchField";
 import {RangeSlider} from "./RangeSlider";
+import {PacksTable} from "./PacksTable";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import {AddNewPackModal} from "./modal/AddNewPackModal";
 
 
 export const formatDate = (date: Date | string | number) => {
@@ -36,7 +37,7 @@ export const Packs = React.memo(() => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const min = useAppSelector(state => state.packs.params.min)
     const max = useAppSelector(state => state.packs.params.max)
-    const name=useAppSelector(state=>state.packs.name)
+
 
 
 
@@ -44,10 +45,12 @@ export const Packs = React.memo(() => {
         dispatch(getPacksTC())
     }, [page, pageCount, packName, isMyPack, min, max]);
 
-    //button add pack
-    const addPackChange = () => {
-        dispatch(addPackTC(name))
-    }
+    // //button add pack
+    // const addPackChange = () => {
+    //     dispatch(addPackTC(name))
+    // }
+                   //modal
+    const [openModAddNewPack, setOpenModAddNewPack] = useState(false) //мод окно закрыто
     // All Packs and My Packs
     const allPacksHandler = () => {
         dispatch(isMyPackAC(false))
@@ -89,7 +92,8 @@ export const Packs = React.memo(() => {
                     <Button className={s.btn}
                             variant={'contained'}
                             color="secondary"
-                            onClick={addPackChange}
+                            // onClick={addPackChange}
+                            onClick={() => setOpenModAddNewPack(true)}
                     >
                         Add new pack
                     </Button>
@@ -160,7 +164,10 @@ export const Packs = React.memo(() => {
 
                 </div>
             </div>
-
+            <AddNewPackModal
+                isOpenModal={openModAddNewPack}
+                setIsOpenModal={setOpenModAddNewPack}
+            />
         </div>
     )
 });

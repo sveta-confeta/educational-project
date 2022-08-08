@@ -6,7 +6,7 @@ import s from './Modal.module.css';
 import {Button, IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const style = {
+const style = {   //это общие стили для модалки
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
@@ -20,7 +20,7 @@ const style = {
 };
 
 type ModalPropsType = {
-    operationTitle: string
+    title: string
     buttonName: string
     handleOperation: () => void
     isOpenModal: boolean
@@ -29,16 +29,18 @@ type ModalPropsType = {
 }
 
 export const BasicModal: React.FC<ModalPropsType> = ({
-                                                         operationTitle,
+                                                         title,
                                                          buttonName,
                                                          handleOperation,
                                                          isOpenModal,
                                                          setIsOpenModal,
                                                          children
+
                                                      }) => {
     const handleClose = () => {
         setIsOpenModal(false);
     }
+
 
     const onClickHandler = () => {
         handleOperation()
@@ -55,7 +57,7 @@ export const BasicModal: React.FC<ModalPropsType> = ({
 
             <Box sx={style}>
                 <div className={s.title}>
-                    {operationTitle}
+                    {title}
                     <IconButton onClick={handleClose}>
                         <CloseIcon/>
                     </IconButton>

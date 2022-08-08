@@ -19,7 +19,7 @@ const initialState = {
         sortPacks: '',
     },
     isMyPack: false,
-    name:'New pack',
+
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -76,8 +76,8 @@ export const setParamsSortPack = (sortParams: string): AppThunk => dispatch => {
 
 
 export const addPackTC = (name: string, deckCover?: string, isPrivate?: boolean): AppThunk => {
-    return (dispatch,getState) => {
-        let name=getState().packs.name;
+    return (dispatch) => {
+       // let name=getState().packs.name;// delete
         dispatch(setStatusAC(true))
         packsAPI.addPack(name, deckCover, isPrivate)
             .then(() => {
