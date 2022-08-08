@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ReactNode} from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import styles from './Modal.module.css';
+import s from './Modal.module.css';
 import {Button, IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -24,18 +24,18 @@ type ModalPropsType = {
     buttonName: string
     handleOperation: () => void
     isOpenModal: boolean
-    children: ReactNode
+    children: ReactNode///!!!!
     setIsOpenModal: (value: boolean) => void
 }
 
-export const BasicModal: React.FC<ModalPropsType> = React.memo(({
-                                                                    operationTitle,
-                                                                    buttonName,
-                                                                    handleOperation,
-                                                                    isOpenModal,
-                                                                    setIsOpenModal,
-                                                                    children
-                                                                }) => {
+export const BasicModal: React.FC<ModalPropsType> = ({
+                                                         operationTitle,
+                                                         buttonName,
+                                                         handleOperation,
+                                                         isOpenModal,
+                                                         setIsOpenModal,
+                                                         children
+                                                     }) => {
     const handleClose = () => {
         setIsOpenModal(false);
     }
@@ -52,19 +52,20 @@ export const BasicModal: React.FC<ModalPropsType> = React.memo(({
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
+
             <Box sx={style}>
-                <div className={styles.title}>
+                <div className={s.title}>
                     {operationTitle}
                     <IconButton onClick={handleClose}>
                         <CloseIcon/>
                     </IconButton>
                 </div>
                 {children}
-                <div className={styles.buttonsBlock}>
+                <div className={s.buttonsBlock}>
                     <Button onClick={handleClose} color="secondary" variant="contained">Cancel</Button>
                     <Button onClick={onClickHandler} color="secondary" variant="contained">{buttonName}</Button>
                 </div>
             </Box>
         </Modal>
     );
-});
+};

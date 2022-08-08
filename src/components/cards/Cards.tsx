@@ -22,17 +22,16 @@ import {Search} from "../../common/searchField/SearchField";
 export const Cards = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
+
+    const {packId} = useParams();
     const userId = useAppSelector(state => state.profile._id)
     const packUserId = useAppSelector(state => state.cards.packUserId)
     const packName=useAppSelector(state=>state.packs.cardPacks.find(el=> el._id===packId)?.name)
     const cardsTotalCount = useAppSelector(state => state.cards.params.cardsTotalCount)
     const page = useAppSelector(state => state.cards.params.page)
     const pageCount = useAppSelector(state => state.cards.params.pageCount)
-
     const cardQuestion = useAppSelector(state => state.cards.params.cardQuestion)
-    const cardAnswer = useAppSelector(state => state.cards.params.cardAnswer)
-
-    const {packId} = useParams();
+    //const cardAnswer = useAppSelector(state => state.cards.params.cardAnswer)
 
 
 
@@ -90,11 +89,9 @@ export const Cards = () => {
 
                     </div>
 
-                    {userId!==packUserId ? <h1 className={s.title}>
+                     <h1 className={s.title}>
                         {packName}
-                    </h1> :  <h1 className={s.title}>
-                        {packName}
-                    </h1> }
+                    </h1>
 
                     <div className={s.wrapperTitle}>
                         <div className={s.search}>
