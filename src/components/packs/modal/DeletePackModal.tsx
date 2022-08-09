@@ -6,21 +6,21 @@ import {BasicModal} from "../../../common/modal/Modal";
 type DeletePackModalType = {
     isOpenModal: boolean
     setIsOpenModal: (value: boolean) => void
-    packName?: string
-    cardPackId?: string
+    deletePackID:string
+    packName:string
 }
 
 export const DeletePackModal: React.FC<DeletePackModalType> = React.memo(({
-                                                                              cardPackId,
                                                                               packName,
+                                                                              deletePackID,
                                                                               isOpenModal,
                                                                               setIsOpenModal,
                                                                           }) => {
     const dispatch = useAppDispatch()
 
     const deleteCardPack = () => {
-        dispatch(deletePackTC(cardPackId!))
-        setIsOpenModal(false)
+        dispatch(deletePackTC(deletePackID))
+
     }
 
     return (

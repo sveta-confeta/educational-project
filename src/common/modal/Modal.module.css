@@ -25,19 +25,19 @@
     margin-top: 20px;
 }
 .one{
-    background: #FCFCFC;
-    box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.6), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    padding: 7px 27px;
-    letter-spacing: 1px;
-    color: #000000;
-    opacity: 0.6;
-    font-weight: bold;
+    background: #FCFCFC!important;
+    box-shadow: 0 2px 10px rgba(109, 109, 109, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    border-radius: 30px!important;
+    padding: 7px 27px!important;
+    letter-spacing: 1px!important;
+    color: #000000!important;
+    opacity: 0.6!important;
+    font-weight: bold!important;
 }
 .two{
-    background: #7b1fa2;;
-    box-shadow: 0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    padding: 7px 35px;
-    letter-spacing: 1px;
+    background: #7b1fa2!important;
+    box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3)!important;
+    border-radius: 30px!important;
+    padding: 7px 35px!important;
+    letter-spacing: 1px!important;
 }

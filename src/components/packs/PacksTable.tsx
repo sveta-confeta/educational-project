@@ -32,8 +32,11 @@ export const PacksTable = () => {
 
 
     const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
+    const [deletePackID, setDeletePackID] = useState('');
+    const [packName, setPackName] = useState('');
+
     const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false)
-    const [deletePackData, setDeletePackData] = useState<PackType | null>(null);
+
     const [updatePackData, setUpdatePackData] = useState<PackType | null>(null);
 
     const sortUpdate = (sortParams: string) => {
@@ -41,13 +44,14 @@ export const PacksTable = () => {
 
     }
 
-    const deleteHandler = (id: string) => {
-        dispatch(deletePackTC(id));
-    }
+    // const deleteHandler = (id: string) => {   был хардкод удаления пака
+    //     dispatch(deletePackTC(id));
+    // }
 
-    const openModalDeletePack = (pack: PackType) => {
+    const openModalDeletePack = (packID: string,name:string) => {
         setIsOpenModalDelete(true)
-        setDeletePackData(pack)
+        setDeletePackID(packID);
+        setPackName(name);
     }
 
     const openModalUpdatePack = (pack: PackType) => {
@@ -91,8 +95,8 @@ export const PacksTable = () => {
                                 <TableCell align="right">{formatDate(pack.updated)}</TableCell>
                                 <TableCell className={s.buttonBlock}>
                                     <Button
-                                        onClick={() => deleteHandler(pack._id)}
-                                        // onClick={() => openModalDeletePack(pack)}
+                                        // onClick={() => deleteHandler(pack._id)} был хардкод
+                                        onClick={()=>openModalDeletePack(pack._id,pack.name)}
                                         disabled={userId !== pack.user_id}
                                         color="error"
                                         size="small"
@@ -121,7 +125,12 @@ export const PacksTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <DeletePackModal/>
+            <DeletePackModal isOpenModal={isOpenModalDelete}
+                             setIsOpenModal={setIsOpenModalDelete}
+                             deletePackID={deletePackID}
+                             packName={packName}
+
+            />
             {/*{deletePackData && <DeletePackModal*/}
             {/*    isOpenModal={isOpenModalDelete}*/}
             {/*    setIsOpenModal={setIsOpenModalDelete}*/}
