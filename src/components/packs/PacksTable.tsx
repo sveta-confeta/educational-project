@@ -17,6 +17,7 @@ import {PackType} from '../../api/packsAPI';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import {deletePackTC, setParamsSortPack} from "../../bll/packsReducer";
 import {DeletePackModal} from "./modal/DeletePackModal";
+import {UpdatePackModal} from "./modal/UpdatePackModal";
 
 
 export const PacksTable = () => {
@@ -31,13 +32,10 @@ export const PacksTable = () => {
     const dispatch = useAppDispatch()
 
 
-    const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
-    const [deletePackID, setDeletePackID] = useState('');
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+    const [packID, setPackID] = useState('');
     const [packName, setPackName] = useState('');
-
-    const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false)
-
-    const [updatePackData, setUpdatePackData] = useState<PackType | null>(null);
+    const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
 
     const sortUpdate = (sortParams: string) => {
         return sort === `1${sortParams}` ? dispatch(setParamsSortPack(`0${sortParams}`)) : dispatch(setParamsSortPack(`1${sortParams}`));
@@ -49,14 +47,14 @@ export const PacksTable = () => {
     // }
 
     const openModalDeletePack = (packID: string,name:string) => {
-        setIsOpenModalDelete(true)
-        setDeletePackID(packID);
+        setIsOpenDeleteModal(true)
+        setPackID(packID);
         setPackName(name);
     }
-
-    const openModalUpdatePack = (pack: PackType) => {
-        setIsOpenModalUpdate(true)
-        setUpdatePackData(pack)
+    const openModalUpdatePack = (packID: string,name:string) => {
+        setIsOpenUpdateModal(true)
+        setPackID(packID);
+        setPackName(name);
     }
 
 
@@ -104,7 +102,7 @@ export const PacksTable = () => {
                                         Delete
                                     </Button>
                                     <Button
-                                        onClick={() => openModalUpdatePack(pack)}
+                                        onClick={() => openModalUpdatePack(pack._id,pack.name)}
                                         disabled={userId !== pack.user_id}
                                         color="secondary"
                                         size="small"
@@ -125,23 +123,18 @@ export const PacksTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <DeletePackModal isOpenModal={isOpenModalDelete}
-                             setIsOpenModal={setIsOpenModalDelete}
-                             deletePackID={deletePackID}
+            <DeletePackModal isOpenModal={isOpenDeleteModal}
+                             setIsOpenModal={setIsOpenDeleteModal}
+                             packID={packID}
                              packName={packName}
 
             />
-            {/*{deletePackData && <DeletePackModal*/}
-            {/*    isOpenModal={isOpenModalDelete}*/}
-            {/*    setIsOpenModal={setIsOpenModalDelete}*/}
-            {/*    packName={deletePackData && deletePackData.name}*/}
-            {/*    cardPackId={deletePackData && deletePackData._id}*/}
-            {/*/>}*/}
-            {/*{updatePackData && <UpdatePackModal*/}
-            {/*    isOpenModal={isOpenModalUpdate}*/}
-            {/*    setIsOpenModal={setIsOpenModalUpdate}*/}
-            {/*    pack={updatePackData}*/}
-            {/*/>}*/}
+            <UpdatePackModal isOpenModal={isOpenUpdateModal}
+                             setIsOpenModal={setIsOpenUpdateModal}
+                             packName={packName}
+                             packID={packID}
+            />
+
         </>
     );
 };

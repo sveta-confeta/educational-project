@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from 'react';
-
-import styles from '../../../common/c7-Modal/Modal.module.css';
+import React, { useState} from 'react';
+import s from './../../../common/modal/Modal.module.css'
 import {TextField} from '@mui/material';
-import {PackType} from '../../../api/packsAPI';
 import {useAppDispatch} from "../../../bll/state";
 import {updatePackTC} from "../../../bll/packsReducer";
 import {BasicModal} from "../../../common/modal/Modal";
@@ -10,24 +8,23 @@ import {BasicModal} from "../../../common/modal/Modal";
 type UpdatePackModalType = {
     isOpenModal: boolean
     setIsOpenModal: (value: boolean) => void
-    pack: PackType | null
+    packID: string
+    packName:string
 }
 
 
 export const UpdatePackModal: React.FC<UpdatePackModalType> = React.memo(({
-                                                                              pack,
+                                                                              packID,
+                                                                              packName,
                                                                               isOpenModal,
                                                                               setIsOpenModal,
                                                                           }) => {
-    const [newPackName, setNewPackName] = useState<string>(pack ? pack.name : '')
+    const [newPackName, setNewPackName] = useState<string >(packName )
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        pack && setNewPackName(pack.name)
-    }, [pack])
 
     const updateCardPack = () => {
-        pack && dispatch(updatePackTC(pack._id, newPackName))
+       dispatch(updatePackTC(packID,newPackName))
         setNewPackName(newPackName)
         setIsOpenModal(false)
     }
@@ -39,13 +36,13 @@ export const UpdatePackModal: React.FC<UpdatePackModalType> = React.memo(({
                     isOpenModal={isOpenModal}
                     setIsOpenModal={setIsOpenModal}
         >
-            <TextField className={styles.addItemField}
+            <TextField className={s.addItemField}
                        label="Title"
                        variant="standard"
                        color="secondary"
                        value={newPackName}
                        onChange={(e) => setNewPackName(e.currentTarget.value)}/>
-            <div>Do you really want to change <b>{pack!.name}</b>?</div>
+            <div>Do you really want to change <b>{packName}</b>?</div>
         </BasicModal>
     );
 });
