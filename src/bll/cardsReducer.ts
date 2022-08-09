@@ -16,8 +16,8 @@ const initialState = {
         cardAnswer: '',
         sortCards: '',
     },
-    question: 'new question',
-    answer: 'как пройти в библиотеку',
+    // question: 'new question',
+    // answer: 'как пройти в библиотеку',
     minGrade: 0,
     maxGrade: 6,
 }
@@ -98,10 +98,10 @@ export const getCardsTC = (cardsPack_id: string): AppThunk => {
     }
 }
 
-export const addCardTC = (cardsPack_id: string): AppThunk => {
-    return (dispatch, getState) => {
-        const question = getState().cards.question
-        const answer = getState().cards.answer
+export const addCardTC = (cardsPack_id: string,question: string, answer: string): AppThunk => {
+    return (dispatch) => {
+       // const question = getState().cards.question//был хардкод до модалок
+       // const answer = getState().cards.answer
 
         dispatch(setStatusAC(true))
         cardsAPI.addCard(cardsPack_id, question, answer)

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Cards.module.css'
 import {useNavigate, useParams} from 'react-router-dom';
 import {CardsTable} from './CardsTable';
@@ -17,6 +17,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {Search} from "../../common/searchField/SearchField";
+import {AddNewCardModal} from "./modals/AddNewCardModal";
 
 
 export const Cards = () => {
@@ -26,14 +27,15 @@ export const Cards = () => {
     const {packId} = useParams();
     const userId = useAppSelector(state => state.profile._id)
     const packUserId = useAppSelector(state => state.cards.packUserId)
-    const packName=useAppSelector(state=>state.packs.cardPacks.find(el=> el._id===packId)?.name)
+    const packName = useAppSelector(state => state.packs.cardPacks.find(el => el._id === packId)?.name)
     const cardsTotalCount = useAppSelector(state => state.cards.params.cardsTotalCount)
     const page = useAppSelector(state => state.cards.params.page)
     const pageCount = useAppSelector(state => state.cards.params.pageCount)
     const cardQuestion = useAppSelector(state => state.cards.params.cardQuestion)
     //const cardAnswer = useAppSelector(state => state.cards.params.cardAnswer)
 
-
+    const [isOpenModalAddNewCard, setIsOpenModalAddNewCard] = useState(false)
+    const [packID, setPackID] = useState('');
 
     // const clearValue = (value: string) => {
     //     if (searchCardValue === 'Question') dispatch(searchQuestionAC(''))
@@ -66,10 +68,15 @@ export const Cards = () => {
     // }
 
     //button add сard
-    const addCardChange = () => { //была тут ошибка string | undefined
-        if (packId) {
-            dispatch(addCardTC(packId))
-        }
+    // const addCardChange = () => { //была тут ошибка string | undefined
+    //     if (packId) {
+    //         dispatch(addCardTC(packId))
+    //     }
+    // }           добавление кардсов до модалки
+
+    const addCardModal=(packId:string)=>{
+            setIsOpenModalAddNewCard(true);
+            setPackID(packID)
     }
 
     //back
@@ -89,7 +96,7 @@ export const Cards = () => {
 
                     </div>
 
-                     <h1 className={s.title}>
+                    <h1 className={s.title}>
                         {packName}
                     </h1>
 
@@ -103,7 +110,7 @@ export const Cards = () => {
                         <Button className={s.btn}
                                 variant={'contained'}
                                 color="secondary"
-                                onClick={addCardChange}
+                                onClick={() => addCardModal(packId ? packId:'')}
                                 disabled={userId !== packUserId}
                         >
                             Add new card
@@ -144,6 +151,11 @@ export const Cards = () => {
                         cards per page
 
                     </div>
+                    <AddNewCardModal
+                        isOpenModal={isOpenModalAddNewCard}
+                        setIsOpenModal={setIsOpenModalAddNewCard}
+                        packId={packId}
+                    />
                 </div>
             </div>
         </div>

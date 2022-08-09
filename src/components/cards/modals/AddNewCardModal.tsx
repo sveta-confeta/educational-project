@@ -1,7 +1,6 @@
 import React from 'react';
 import {TextField} from '@mui/material';
 import s from './../../../common/modal/Modal.module.css'
-import {useParams} from 'react-router-dom';
 import {useAppDispatch} from "../../../bll/state";
 import {addCardTC} from "../../../bll/cardsReducer";
 import {BasicModal} from "../../../common/modal/Modal";
@@ -9,17 +8,18 @@ import {BasicModal} from "../../../common/modal/Modal";
 type AddNewCardType = {
     isOpenModal: boolean
     setIsOpenModal: (value: boolean) => void
+    packId:string | undefined
 }
 
-export const AddNewCardModal: React.FC<AddNewCardType> = React.memo(({isOpenModal, setIsOpenModal}) => {
-    const [newCardQuestion, setNewCardQuestion] = React.useState('')
-    const [newCardAnswer, setNewCardAnswer] = React.useState('')
+export const AddNewCardModal: React.FC<AddNewCardType> = React.memo(({isOpenModal, setIsOpenModal,packId}) => {
+    const [newCardQuestion, setNewCardQuestion] = React.useState('') //для вопросов
+    const [newCardAnswer, setNewCardAnswer] = React.useState('')   //для ответов
     const dispatch = useAppDispatch()
-    const {packId} = useParams<'packId'>();
+
 
     const addNewCard = () => {
         if (packId) {
-            dispatch(addCardTC({cardsPack_id: packId, question: newCardQuestion, answer: newCardAnswer}))
+            dispatch(addCardTC( packId,newCardQuestion, newCardAnswer))
             setNewCardQuestion('')
             setNewCardAnswer('')
         }
