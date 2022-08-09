@@ -49,8 +49,11 @@ export const Packs = React.memo(() => {
     // const addPackChange = () => {
     //     dispatch(addPackTC(name))
     // }
+
+
                    //modal
     const [openModAddNewPack, setOpenModAddNewPack] = useState(false) //мод окно закрыто
+
     // All Packs and My Packs
     const allPacksHandler = () => {
         dispatch(isMyPackAC(false))

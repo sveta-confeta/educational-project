@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Checkbox, TextField} from '@mui/material';
 import s from './../../../common/modal/Modal.module.css'
-import {useNavigate} from 'react-router-dom';
 import {useAppDispatch} from "../../../bll/state";
 import {addPackTC} from "../../../bll/packsReducer";
 import {BasicModal} from "../../../common/modal/Modal";
@@ -16,25 +15,25 @@ export const AddNewPackModal: React.FC<AddNewPackType> = React.memo(
         const [newPackName, setNewPackName] = useState('')
         const [isPrivate, setPrivate] = React.useState(false)
         const dispatch = useAppDispatch()
-        // const navigate = useNavigate()
+
 
         const addNewCardPack = () => {
             dispatch(addPackTC(newPackName, 'ggg', isPrivate))
             setNewPackName('')
-            // navigate('/packs')
+
         }
 
         return (
             <BasicModal
-                 isOpenModal={isOpenModal}
-                 setIsOpenModal={setIsOpenModal}
+                isOpenModal={isOpenModal}
+                setIsOpenModal={setIsOpenModal}
                 title={'Add new Pack'}
                 buttonName={'Save'}
                 handleOperation={addNewCardPack}
             >
 
                 <TextField className={s.addItemField}
-                           label="Title"
+                           label="write title"
                            variant="standard"
                            color="secondary"
                            value={newPackName}

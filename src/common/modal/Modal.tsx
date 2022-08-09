@@ -16,7 +16,7 @@ const style = {   //это общие стили для модалки
     border: '2px solid #9c27b0',
     borderRadius: '8px',
     boxShadow: 24,
-    p: 4,
+    p: 3,
 };
 
 type ModalPropsType = {
@@ -64,8 +64,8 @@ export const BasicModal: React.FC<ModalPropsType> = ({
                 </div>
                 {children}
                 <div className={s.buttonsBlock}>
-                    <Button onClick={handleClose} color="secondary" variant="contained">Cancel</Button>
-                    <Button onClick={onClickHandler} color="secondary" variant="contained">{buttonName}</Button>
+                    <Button className={s.one} onClick={handleClose} color="secondary" variant="contained">Cancel</Button>
+                    <Button className={s.two} onClick={onClickHandler} color="secondary" variant="contained">{buttonName}</Button>
                 </div>
             </Box>
         </Modal>

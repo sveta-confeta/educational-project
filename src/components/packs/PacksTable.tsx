@@ -16,6 +16,7 @@ import {formatDate} from './Packs';
 import {PackType} from '../../api/packsAPI';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import {deletePackTC, setParamsSortPack} from "../../bll/packsReducer";
+import {DeletePackModal} from "./modal/DeletePackModal";
 
 
 export const PacksTable = () => {
@@ -30,7 +31,7 @@ export const PacksTable = () => {
     const dispatch = useAppDispatch()
 
 
-    const [isOpenModalDelete, setIsOpenModalDelete] = useState(false)
+    const [isOpenModalDelete, setIsOpenModalDelete] = useState(false);
     const [isOpenModalUpdate, setIsOpenModalUpdate] = useState(false)
     const [deletePackData, setDeletePackData] = useState<PackType | null>(null);
     const [updatePackData, setUpdatePackData] = useState<PackType | null>(null);
@@ -120,6 +121,7 @@ export const PacksTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <DeletePackModal/>
             {/*{deletePackData && <DeletePackModal*/}
             {/*    isOpenModal={isOpenModalDelete}*/}
             {/*    setIsOpenModal={setIsOpenModalDelete}*/}
