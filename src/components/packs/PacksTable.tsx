@@ -13,9 +13,8 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import TableContainer from '@mui/material/TableContainer';
 import {formatDate} from './Packs';
-import {PackType} from '../../api/packsAPI';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
-import {deletePackTC, setParamsSortPack} from "../../bll/packsReducer";
+import {setParamsSortPack} from "../../bll/packsReducer";
 import {DeletePackModal} from "./modal/DeletePackModal";
 import {UpdatePackModal} from "./modal/UpdatePackModal";
 
@@ -23,12 +22,9 @@ import {UpdatePackModal} from "./modal/UpdatePackModal";
 export const PacksTable = () => {
     const navigate = useNavigate()
 
-
-    //return state.filter(f => f.id !== action.todolistID)
     const packs = useAppSelector(state => state.packs.cardPacks)
     const userId = useAppSelector(state => state.profile._id)
     const sort = useAppSelector(state => state.packs.params.sortPacks)
-    //const id=useAppSelector(state=>state.packs.cardPacks)
     const dispatch = useAppDispatch()
 
 
@@ -45,7 +41,7 @@ export const PacksTable = () => {
     // const deleteHandler = (id: string) => {   был хардкод удаления пака
     //     dispatch(deletePackTC(id));
     // }
-
+     //modal:
     const openModalDeletePack = (packID: string,name:string) => {
         setIsOpenDeleteModal(true)
         setPackID(packID);
