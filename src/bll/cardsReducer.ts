@@ -1,12 +1,12 @@
 import {AxiosError} from 'axios';
-import {cardsAPI, CardType} from "../api/cardsAPI";
+import {cardsAPI, CardType, UpdateCardType} from "../api/cardsAPI";
 import {AppThunk} from "./state";
 import {setStatusAC} from "./appReducer";
 import {errorUtils} from "../common/utils/error-util";
 
 const initialState = {
     cards: [] as CardType[],
-    card: {} as CardType,
+    // card: {} as CardType,
     packUserId: '',
     params: {
         page: 1,
@@ -133,10 +133,10 @@ export const deleteCardTC = (cardId: string, packsId: string): AppThunk => {
     }
 }
 
-export const updateCardTC = (data: UpdateCardType, packId: string): AppThunk => {
+export const updateCardTC = (card: UpdateCardType, packId: string): AppThunk => {
     return (dispatch) => {
-        dispatch(setAppStatusAC('loading'))
-        cardsAPI.updateCard(data)
+        dispatch(setStatusAC(true))
+        cardsAPI.updateCard(card)
             .then(() => {
                 dispatch(getCardsTC(packId))
             })
@@ -144,7 +144,7 @@ export const updateCardTC = (data: UpdateCardType, packId: string): AppThunk => 
                 errorUtils(error, dispatch)
             })
             .finally(() => {
-                dispatch(setAppStatusAC('succeeded'))
+                dispatch(setStatusAC(false))
             })
     }
 }

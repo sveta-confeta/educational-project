@@ -1,61 +1,64 @@
 import React, {useState} from 'react';
-import {BasicModal} from '../../../common/c7-Modal/Modal';
-import {useAppDispatch} from '../../../bll/store';
-import {updateCardTC} from '../../../bll/reducers/cards-reducer';
+
 import {TextField} from '@mui/material';
-import styles from '../../../common/c7-Modal/Modal.module.css';
+import s from './../../../common/modal/Modal.module.css';
+import {useAppDispatch} from "../../../bll/state";
+import {updateCardTC} from "../../../bll/cardsReducer";
+import {BasicModal} from "../../../common/modal/Modal";
 
 type UpdateCardType = {
     isOpenModal: boolean
     setIsOpenModal: (value: boolean) => void
-    cardQuestion: string
-    cardAnswer: string
-    cardId: string
     packId: string
+    cardId: string
+    cardName: string
+    cardAnswer: string
 }
 
 export const UpdateCardModal: React.FC<UpdateCardType> = React.memo(({
-                                                                         cardId,
                                                                          packId,
-                                                                         cardQuestion,
+                                                                         cardId,
+                                                                         cardName,
                                                                          cardAnswer,
                                                                          isOpenModal,
                                                                          setIsOpenModal
                                                                      }) => {
 
-    const [newCardQuestion, setNewCardQuestion] = useState(cardQuestion)
+    const [newCardQuestion, setNewCardQuestion] = useState( cardName)
     const [newCardAnswer, setNewCardAnswer] = useState(cardAnswer)
 
     const dispatch = useAppDispatch()
 
+    const card = {_id:cardId,question:cardName,answer:cardAnswer}
+
     const updateCard = () => {
         if (packId) {
-            dispatch(updateCardTC({_id: cardId, question: newCardQuestion, answer: newCardAnswer}, packId))
+            dispatch(updateCardTC(card, packId))
         }
     }
 
     return (
         <BasicModal isOpenModal={isOpenModal}
                     setIsOpenModal={setIsOpenModal}
-                    operationTitle={'Update Card'}
+                    title={'Update Card'}
                     buttonName={'Save'}
                     handleOperation={updateCard}
         >
             <TextField
-                className={styles.addItemField}
+                className={s.addItemField}
                 label="Question"
                 variant="standard"
                 color="secondary"
                 value={newCardQuestion}
                 onChange={(e) => setNewCardQuestion(e.currentTarget.value)}/>
             <TextField
-                className={styles.addItemField}
+                className={s.addItemField}
                 label="Answer"
                 variant="standard"
                 color="secondary"
                 value={newCardAnswer}
                 onChange={(e) => setNewCardAnswer(e.currentTarget.value)}/>
-            <div>Do you really want to change <b>{cardQuestion}</b> and <b>{cardAnswer}</b>?</div>
+            <div>Do you really want to change <b>{cardName}</b> and <b>{cardAnswer}</b>?</div>
         </BasicModal>
     );
 });
