@@ -24,12 +24,12 @@ export const UpdateCardModal: React.FC<UpdateCardType> = React.memo(({
                                                                          setIsOpenModal
                                                                      }) => {
 
-    const [newCardQuestion, setNewCardQuestion] = useState( cardName)
+    const [newCardQuestion, setNewCardQuestion] = useState(cardName)
     const [newCardAnswer, setNewCardAnswer] = useState(cardAnswer)
 
     const dispatch = useAppDispatch()
 
-    const card = {_id:cardId,question:cardName,answer:cardAnswer}
+    const card = {_id:cardId,question:newCardQuestion,answer:newCardAnswer}
 
     const updateCard = () => {
         if (packId) {

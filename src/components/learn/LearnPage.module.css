@@ -1,0 +1,36 @@
+.wrapper {
+    position: fixed;
+    top: 30%;
+    text-align: center;
+    width: 100%;
+}
+
+.form {
+    max-width: 330px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background: #FFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.buttonsBlock {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cancelButton {
+    text-decoration: none;
+}

@@ -30,6 +30,10 @@ export const CardsTable = () => {
     const [isOpenModalCardDelete, setIsOpenModalCardDelete] = useState(false)
     const [isOpenModalCardUpdate, setIsOpenModalCardUpdate] = useState(false)
 
+     const formatDate = (date: Date | string | number) => {
+        return new Date(date).toLocaleDateString('ru-RU') + ' ' + new Date(date).toLocaleTimeString()
+    }
+
     const openModalDeleteCard = (cardId: string, packId: string, cardName: string) => {
         setIsOpenModalCardDelete(true)
         setPackId(packId)
@@ -73,7 +77,7 @@ export const CardsTable = () => {
                                 <TableCell align="right">{card.answer}</TableCell>
                                 <TableCell align="right"><Rating name="read-only" value={card.grade} readOnly/>
                                 </TableCell>
-                                {/*<TableCell align="right">{formatDate(card.updated)}</TableCell>*/}
+                                <TableCell align="right">{formatDate(card.updated)}</TableCell>
                                 <TableCell className={s.buttonBlock}>
                                     <Button
                                         // onClick={()=>deleteCard(card._id,card.cardsPack_id)}
