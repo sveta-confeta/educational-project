@@ -133,21 +133,21 @@ export const deleteCardTC = (cardId: string, packsId: string): AppThunk => {
     }
 }
 
-// export const updateCardTC = (data: UpdateCardType, packId: string): AppThunk => {
-//     return (dispatch) => {
-//         dispatch(setAppStatusAC('loading'))
-//         cardsAPI.updateCard(data)
-//             .then(() => {
-//                 dispatch(getCardsTC(packId))
-//             })
-//             .catch((error: AxiosError<{ error: string }>) => {
-//                 errorUtils(error, dispatch)
-//             })
-//             .finally(() => {
-//                 dispatch(setAppStatusAC('succeeded'))
-//             })
-//     }
-// }
+export const updateCardTC = (data: UpdateCardType, packId: string): AppThunk => {
+    return (dispatch) => {
+        dispatch(setAppStatusAC('loading'))
+        cardsAPI.updateCard(data)
+            .then(() => {
+                dispatch(getCardsTC(packId))
+            })
+            .catch((error: AxiosError<{ error: string }>) => {
+                errorUtils(error, dispatch)
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC('succeeded'))
+            })
+    }
+}
 
 // export const setCardGradeTC = (data: UpdateGradeType): AppThunk => {
 //     return (dispatch) => {

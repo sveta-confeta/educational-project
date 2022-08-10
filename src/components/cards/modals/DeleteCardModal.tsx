@@ -5,7 +5,7 @@ import {deleteCardTC} from "../../../bll/cardsReducer";
 
 
 type DeleteCardType = {
-    cardQuestion: string
+    cardName: string
     cardId: string
     packId: string
     isOpenModal: boolean
@@ -15,7 +15,7 @@ type DeleteCardType = {
 export const DeleteCardModal: React.FC<DeleteCardType> = React.memo(({
                                                                          cardId,
                                                                          packId,
-                                                                         cardQuestion,
+                                                                         cardName,
                                                                          isOpenModal,
                                                                          setIsOpenModal
                                                                      }) => {
@@ -33,7 +33,7 @@ export const DeleteCardModal: React.FC<DeleteCardType> = React.memo(({
             isOpenModal={isOpenModal}
             setIsOpenModal={setIsOpenModal}
         >
-            <div>Do you really want to remove card with question <b>{cardQuestion}</b>?</div>
+            <div>Do you really want to remove card with question <b>{cardName}</b>?</div>
             <div>The card will be removed.</div>
         </BasicModal>
     );

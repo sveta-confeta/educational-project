@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
@@ -10,26 +10,31 @@ import TableContainer from '@mui/material/TableContainer';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {deleteCardTC} from "../../bll/cardsReducer";
+import {DeleteCardModal} from "./modals/DeleteCardModal";
 
 export const CardsTable = () => {
     const dispatch = useAppDispatch()
     const userId = useAppSelector(state => state.profile._id)
     const cards = useAppSelector(state => state.cards.cards)
 
-    const deleteCard=(cardId:string,packsId:string)=>{
-        dispatch(deleteCardTC(cardId, packsId));
+    // const deleteCard=(cardId:string,packsId:string)=>{  кода был хардкод без модалок
+    //     dispatch(deleteCardTC(cardId, packsId));
+    // }
+
+    const [cardId, setcardId] = useState('');
+    const [cardName, setCardName] = useState('');
+    const [packId, setPackId] = useState('');
+    const [isOpenModalCardDelete, setIsOpenModalCardDelete] = useState(false)
+    const [isOpenModalCardUpdate, setIsOpenModalCardUpdate] = useState(false)
+
+    const openModalDeleteCard = (cardId:string,packId:string,cardName:string) => {
+        setIsOpenModalCardDelete(true)
+        setPackId(packId)
+        setcardId(cardId)
+        setCardName(cardName)
+
     }
 
-    // const [deleteCardData, setDeleteCardData] = useState<CardType | null>(null);
-    // const [updateCardData, setUpdateCardData] = useState<CardType | null>(null);
-    // const [isOpenModalCardDelete, setIsOpenModalCardDelete] = useState(false)
-    // const [isOpenModalCardUpdate, setIsOpenModalCardUpdate] = useState(false)
-
-    // const openModalDeleteCard = (card: CardType) => {
-    //     setIsOpenModalCardDelete(true)
-    //     setDeleteCardData(card)
-    // }
-    //
     // const openModalUpdateCard = (card: CardType) => {
     //     setIsOpenModalCardUpdate(true)
     //     setUpdateCardData(card)
@@ -63,8 +68,8 @@ export const CardsTable = () => {
                                 {/*<TableCell align="right">{formatDate(card.updated)}</TableCell>*/}
                                 <TableCell className={s.buttonBlock}>
                                     <Button
-                                        onClick={()=>deleteCard(card._id,card.cardsPack_id)}
-                                        // onClick={() => openModalDeleteCard(card)}
+                                        // onClick={()=>deleteCard(card._id,card.cardsPack_id)}
+                                         onClick={() => openModalDeleteCard(card._id,card.cardsPack_id,card.question)}
                                         disabled={userId !== card.user_id}
                                         color="error"
                                         size="small"
@@ -72,26 +77,26 @@ export const CardsTable = () => {
                                         Delete
 
                                     </Button>
-                                    {/*<Button*/}
-                                    {/*    onClick={() => openModalUpdateCard(card)}*/}
-                                    {/*    disabled={userId !== card.user_id}*/}
-                                    {/*    color="secondary" size="small"*/}
-                                    {/*    startIcon={<BorderColorIcon/>}>*/}
-                                    {/*    Edit*/}
-                                    {/*</Button>*/}
+                                    <Button
+                                        onClick={() => openModalUpdateCard(card)}
+                                        disabled={userId !== card.user_id}
+                                        color="secondary" size="small"
+                                        startIcon={<BorderColorIcon/>}>
+                                        Edit
+                                    </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            {/*{deleteCardData && <DeleteCardModal*/}
-            {/*    isOpenModal={isOpenModalCardDelete}*/}
-            {/*    setIsOpenModal={setIsOpenModalCardDelete}*/}
-            {/*    cardId={deleteCardData._id}*/}
-            {/*    packId={deleteCardData.cardsPack_id}*/}
-            {/*    cardQuestion={deleteCardData.question}*/}
-            {/*/>}*/}
+             <DeleteCardModal
+                isOpenModal={isOpenModalCardDelete}
+                setIsOpenModal={setIsOpenModalCardDelete}
+                cardId={cardId}
+                packId={packId}
+                cardName={cardName}
+            />
             {/*{updateCardData && <UpdateCardModal*/}
             {/*    isOpenModal={isOpenModalCardUpdate}*/}
             {/*    setIsOpenModal={setIsOpenModalCardUpdate}*/}
