@@ -1,8 +1,7 @@
 .wrapper {
-    position: fixed;
-    top: 30%;
-    text-align: center;
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 60px;
 }
 
 .form {
@@ -16,9 +15,34 @@
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
+.span{
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 24px;
+    cursor:pointer;
+    color: #7b1fa2;
+    position: relative;
+    padding-left: 40px;
+}
+
+.span::before{
+    content: '';
+    background-image: url("./../../image/backarraw.png");
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top:-2px;
+    left: 0;
+}
+
 .title {
     display: flex;
     justify-content: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 27px;
 }
 
 .bold {

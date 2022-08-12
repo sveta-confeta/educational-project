@@ -15,6 +15,7 @@ import {SetNewPassword} from "../components/enterNewPassword/SetNewPassword";
 import {Packs} from "../components/packs/Packs";
 import {PageNoSearch} from "../components/cards/PageNoSearch";
 import {Cards} from "../components/cards/Cards";
+import {LearnPage} from "../components/learn/LearnPage";
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
                 <Route path={'/packs'} element={<Packs/>}/>
                 <Route path={'/cards/:packId'} element={<Cards/>}/>
                 <Route path={'/no-search'} element={<PageNoSearch/>}/>
+                <Route path={'/learn/:packId'} element={<LearnPage/>}/>
 
 
                 {/*<Route path={'/*'} element={<NotFound/>}/>*/}

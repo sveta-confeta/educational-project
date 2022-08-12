@@ -1,9 +1,10 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import {CardType} from '../../api/cardsAPI';
 import {Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from '@mui/material';
-import styles from './LearnPage.module.css'
-import {NavLink, useParams} from 'react-router-dom';
+import s from './LearnPage.module.css'
+import {NavLink, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
+import {getCardsTC, setCardGradeTC} from "../../bll/cardsReducer";
 
 const grades = [
     {value: 1, label: 'I did not know'},
@@ -24,9 +25,14 @@ const getCard = (cards: CardType[]) => {
 }
 
 export const LearnPage = () => {
+    const navigate = useNavigate()
+
     const {packId} = useParams()
+    const packName = useAppSelector(state => state.packs.cardPacks.find(el => el._id === packId)?.name)
+
     const [value, setValue] = React.useState('');
     const [isChecked, setIsChecked] = useState<boolean>(false);
+
     const [first, setFirst] = useState<boolean>(true);
     const [grade, setGrade] = useState<number>(0);
     const {cards} = useAppSelector(state => state.cards)
@@ -46,14 +52,18 @@ export const LearnPage = () => {
     });
 
     const dispatch = useAppDispatch();
+    //back
 
+    const returnToProfile = () => {
+        navigate('/packs')
+    }
     const onNext = () => {
         setIsChecked(false);
 
-        // if (cards.length > 0) {
-        //     dispatch(setCardGradeTC({grade: grade, card_id: card._id}))
-        //     setCard(getCard(cards));
-        // }
+        if (cards.length > 0) {
+            dispatch(setCardGradeTC({grade: grade, card_id: card._id}))
+            setCard(getCard(cards));
+        }
     }
 
     const handleChangeGrade = (e: ChangeEvent<HTMLInputElement>) => {
@@ -66,27 +76,32 @@ export const LearnPage = () => {
     }
 
     useEffect(() => {
-        //
-        // if (first) {
-        //     packId && dispatch(getCardsTC(packId));
-        //     setFirst(false);
-        // }
+
+        if (first) {
+            packId && dispatch(getCardsTC(packId));
+            setFirst(false);
+        }
 
         if (cards.length > 0) setCard(getCard(cards));
 
     }, [dispatch, packId, cards, first]);
 
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.form}>
-                <div className={styles.title}>
-                    <h1>Learn</h1>
+        <div className={s.wrapper}>
+            <div className={s.comeBack}>
+                <span className={s.span} onClick={returnToProfile}>Back to PacksList</span>
+                <div className={s.title}>
+                    <h1>Learn {packName}</h1>
                 </div>
-                <div><span className={styles.bold}>Question: </span>{card.question}</div>
+            </div>
+            <div className={s.form}>
+
+                <div><span className={s.bold}>Question: </span>{card.question}</div>
+                <p>Количество попыток ответов на вопрос:</p>
 
                 {isChecked
                     ? <>
-                        <div><span className={styles.bold}>Answer: </span>{card.answer}</div>
+                        <div><span className={s.bold}>Answer: </span>{card.answer}</div>
 
                         <FormControl>
                             <FormLabel color="secondary">Rate yourself</FormLabel>
@@ -107,21 +122,17 @@ export const LearnPage = () => {
                                 ))}
                             </RadioGroup>
                         </FormControl>
-                        <div className={styles.buttonsBlock}>
-                            <NavLink className={styles.cancelButton} to={'/packs'}>
-                                <Button
-                                    color="secondary"
-                                    variant="contained">Cancel</Button>
-                            </NavLink>
-                            <div><Button
+                        <div className={s.buttonsBlock}>
+                            <Button
                                 onClick={onNext}
                                 color="secondary"
-                                variant="contained">Next Question</Button></div>
+                                variant="contained">Next Question
+                            </Button>
                         </div>
                     </>
                     : <>
-                        <div className={styles.buttonsBlock}>
-                            <NavLink className={styles.cancelButton} to={'/packs'}>
+                        <div className={s.buttonsBlock}>
+                            <NavLink className={s.cancelButton} to={'/packs'}>
                                 <Button
                                     color="secondary"
                                     variant="contained">Cancel</Button>

@@ -10,7 +10,6 @@ import TableContainer from '@mui/material/TableContainer';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {DeleteCardModal} from "./modals/DeleteCardModal";
-import {CardType} from "../../api/cardsAPI";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import {UpdateCardModal} from "./modals/UpdateCardModal";
 
