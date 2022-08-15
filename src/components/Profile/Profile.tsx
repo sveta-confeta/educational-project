@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import s from './Profile.module.css'
-import {Button, Paper} from "@mui/material";
-import {initializeTC} from "../../bll/authReducer";
+import {Paper} from "@mui/material";
 import {Navigate, NavLink} from "react-router-dom";
 import {EditableSpan} from "./EditableSpan";
 import {Preloader} from "../../common/loader/Loader";
+import {LoaderAvatar} from "./LoaderAvatar";
 
 
 type ProfileType = {
@@ -38,6 +38,7 @@ export const Profile: React.FC<ProfileType> = () => {
 
                 {profile.avatar ? profile.avatar :
                     <img src={'https://moskva.bezformata.com/content/image493312821.jpg'}/>}
+                <LoaderAvatar/>
                 <div className={s.userName}>
                     <EditableSpan/>
                 </div>
