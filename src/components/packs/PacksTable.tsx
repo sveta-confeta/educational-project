@@ -106,7 +106,7 @@ export const PacksTable = () => {
                                         Edit
                                     </Button>
                                     <Button
-                                        disabled={pack.cardsCount === 0 || userId !== pack.user_id}
+                                        disabled={pack.cardsCount === 0}
                                         onClick={() => {
                                             navigate(`/learn/${pack._id}`)
                                         }} color="secondary" size="small"

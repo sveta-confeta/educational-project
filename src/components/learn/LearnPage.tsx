@@ -6,14 +6,14 @@ import {NavLink, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../bll/state";
 import {getCardsTC, setCardGradeTC} from "../../bll/cardsReducer";
 
-const grades = [
+const grades = [  //умный рандом    https://github.com/IgnatZakalinsky/cards-nya-front/blob/master/src/cnf-2-fatures/f-3-learn/l-1-ui/LearnPage.tsx
     {value: 1, label: 'I did not know'},
     {value: 2, label: 'I forgot'},
     {value: 3, label: 'I thought for a long time'},
     {value: 4, label: 'I got confused'},
-    {value: 5, label: 'I knew the answer'}];
+    {value: 5, label: 'I know the answer'}];
 
-const getCard = (cards: CardType[]) => {
+const getCard = (cards: CardType[]) => {  //cюда попадают cards   это умная функция генерации карточек
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
     const rand = Math.random() * sum;
     const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
@@ -21,7 +21,7 @@ const getCard = (cards: CardType[]) => {
             return {sum: newSum, id: newSum < rand ? i : acc.id}
         }
         , {sum: 0, id: -1});
-    return cards[res.id + 1];
+    return cards[res.id + 1]; //возращает карточку
 }
 
 export const LearnPage = () => {
@@ -35,25 +35,14 @@ export const LearnPage = () => {
 
     const [first, setFirst] = useState<boolean>(true);
     const [grade, setGrade] = useState<number>(0);
-    const {cards} = useAppSelector(state => state.cards)
+    const cards = useAppSelector(state => state.cards.cards);
 
-    const [card, setCard] = useState<CardType>({
-        _id: '',
-        cardsPack_id: '',
-        answer: '',
-        question: '',
-        grade: 0,
-        shots: 0,
-        type: '',
-        rating: 0,
-        more_id: '',
-        created: '',
-        updated: '',
-    });
+    const [card, setCard] = useState<CardType>({} as CardType
+    );
 
     const dispatch = useAppDispatch();
-    //back
 
+    //back
     const returnToProfile = () => {
         navigate('/packs')
     }
@@ -66,14 +55,9 @@ export const LearnPage = () => {
         }
     }
 
-    const handleChangeGrade = (e: ChangeEvent<HTMLInputElement>) => {
-        const gradeNumbers = [1, 2, 3, 4, 5];
-        const value = Number(e.currentTarget.value);
-
-        if (gradeNumbers.includes(value)) {
-            setGrade(value);
-        }
-    }
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue((event.target as HTMLInputElement).value);
+    };
 
     useEffect(() => {
 
@@ -97,7 +81,7 @@ export const LearnPage = () => {
             <div className={s.form}>
 
                 <div><span className={s.bold}>Question: </span>{card.question}</div>
-                <p>Количество попыток ответов на вопрос:</p>
+                <p>Количество попыток ответов на вопрос: {card.shots}</p>
 
                 {isChecked
                     ? <>
@@ -105,20 +89,33 @@ export const LearnPage = () => {
 
                         <FormControl>
                             <FormLabel color="secondary">Rate yourself</FormLabel>
+                            {/*<RadioGroup*/}
+                            {/*    value={value}*/}
+                            {/*    onChange={(e) => {*/}
+                            {/*        setValue(e.currentTarget.value)*/}
+                            {/*    }}*/}
+                            {/*>*/}
+                            {/*    {grades.map(({value, label}, i) => (*/}
+                            {/*        <FormControlLabel*/}
+                            {/*            key={'grade-' + i}*/}
+                            {/*            value={value}*/}
+                            {/*            control={<Radio value={value}*/}
+                            {/*                            onChange={handleChangeGrade}*/}
+                            {/*                            color="secondary"/>}*/}
+                            {/*            label={label}/>*/}
+                            {/*    ))}*/}
+                            {/*</RadioGroup>*/}
                             <RadioGroup
                                 value={value}
-                                onChange={(e) => {
-                                    setValue(e.currentTarget.value)
-                                }}
+                                onChange={handleChange}
                             >
-                                {grades.map(({value, label}, i) => (
+                                {grades.map((grade, i) => (
                                     <FormControlLabel
                                         key={'grade-' + i}
-                                        value={value}
-                                        control={<Radio value={value}
-                                                        onChange={handleChangeGrade}
-                                                        color="secondary"/>}
-                                        label={label}/>
+                                        value={grade.value}
+                                        control={<Radio onChange={() => setGrade(grade.value)}/>}
+                                        label={grade.label}
+                                    />
                                 ))}
                             </RadioGroup>
                         </FormControl>
