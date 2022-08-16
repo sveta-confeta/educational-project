@@ -41,3 +41,11 @@
     padding: 7px 35px!important;
     letter-spacing: 1px!important;
 }
+.coverText{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+.coverImg{
+   text-align: center;
+}

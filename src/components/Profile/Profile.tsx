@@ -16,7 +16,6 @@ type ProfileType = {
 }
 
 export const Profile: React.FC<ProfileType> = () => {
-    const dispatch = useAppDispatch();
 
     const profile = useAppSelector(state => state.profile)
     const isLogin = useAppSelector(state => state.auth.isLoggedIn)
@@ -35,10 +34,8 @@ export const Profile: React.FC<ProfileType> = () => {
 
             <Paper className={s.loginForm} elevation={3}>
                 <span className={s.title}>My profile</span>
-
-                {profile.avatar ? profile.avatar :
-                    <img src={'https://moskva.bezformata.com/content/image493312821.jpg'}/>}
                 <LoaderAvatar/>
+
                 <div className={s.userName}>
                     <EditableSpan/>
                 </div>

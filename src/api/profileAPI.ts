@@ -11,10 +11,13 @@ export const profileAPI = {
     updateNameData(name:string) {
         return instance.put('auth/me', {name})
     },
+    updateAvatarData(avatar:string) {
+        return instance.put('auth/me', {avatar})
+    },
 };
 
 // types
 export type UpdateUserParamsType = {
-    name: string
+    name?: string
     avatar?: string
 }

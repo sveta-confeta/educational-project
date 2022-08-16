@@ -53,28 +53,27 @@ export const updateNameDataTC = (name:string)=>(dispatch:Dispatch) => {
             dispatch(setStatusAC(false))
         })
 }
+export const updateAvatarDataTC = (avatar:string)=>(dispatch:Dispatch) => {
+    debugger
+    dispatch(setStatusAC(true))
+    profileAPI.updateAvatarData(avatar)
+        .then((res) => {
+            debugger
+            dispatch(setProfileAC(res.data.updatedUser))
+        })
+        .catch((error: AxiosError<{ error: string }>) => {
+            errorUtils(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setStatusAC(false))
+        })
+}
 
 export type UpdateResponseType = { //то что нам приходит в ответ с сервера на запрос
     updatedUser: infoProfileType
     token: string
     tokenDeathTime: string
 }
-
-// export type UserDataType = {
-//     _id: string
-//     email: string
-//     rememberMe?: boolean
-//     isAdmin?: boolean
-//     name: string
-//     verified?: boolean
-//     publicCardPacksCount: number
-//     created?: Date
-//     updated?: Date
-//     __v?: number
-//     token?: string
-//     tokenDeathTime?: number
-//     avatar: string
-// }
 
 
 

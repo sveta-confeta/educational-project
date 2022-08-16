@@ -17,6 +17,7 @@ import {useAppDispatch, useAppSelector} from "../../bll/state";
 import {setParamsSortPack} from "../../bll/packsReducer";
 import {DeletePackModal} from "./modal/DeletePackModal";
 import {UpdatePackModal} from "./modal/UpdatePackModal";
+import  defaultImg from './../../image/defaultImg.jpg'
 
 
 export const PacksTable = () => {
@@ -60,6 +61,7 @@ export const PacksTable = () => {
                 <Table sx={{minWidth: 400}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
+                            <TableCell>Cover</TableCell>
                             <TableCell onClick={() => sortUpdate('name')}
                                        className={sort === '0name' ? s.sortUp : s.sortDown}>Name</TableCell>
                             <TableCell align="right" onClick={() => sortUpdate('cardsCount')}
@@ -79,6 +81,10 @@ export const PacksTable = () => {
                                 key={pack._id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
+
+                                <TableCell   align="right">
+                                    {/*@ts-ignore*/}
+                                    <img className={s.coverImg} src={pack.deckCover ? pack.deckCover : defaultImg }/></TableCell>
                                 <TableCell component="th" scope="row">
                                     <Link className={s.pack}
                                           to={`/cards/${pack._id}`}>{pack.name}</Link>
