@@ -108,10 +108,10 @@ export const deletePackTC = (id?: string): AppThunk => {
     }
 }
 
-export const updatePackTC = (id: string, name: string): AppThunk => {
+export const updatePackTC = (id: string, name: string,deckCover:string): AppThunk => {
     return (dispatch) => {
         dispatch(setStatusAC(true))
-        packsAPI.updatePack(id, name)
+        packsAPI.updatePack(id, name,deckCover)
             .then(() => {
                 dispatch(getPacksTC())
             })

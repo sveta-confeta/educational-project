@@ -16,8 +16,8 @@ export const packsAPI = {
     deletePack(id?: string) {
         return instance.delete(`/cards/pack?id=${id}`)
     },
-    updatePack(_id: string, name: string) {
-        return instance.put('/cards/pack', {cardsPack: {_id, name}})
+    updatePack(_id: string, name: string, deckCover:string) {
+        return instance.put('/cards/pack', {cardsPack: {_id, name, deckCover}})
     }
 };
 
@@ -48,7 +48,7 @@ export type PackType = {
     updated: string,
     more_id: string,
     __v: number,
-    deckCover: null
+    deckCover: string
 }
 
 export type ResponseGetPacksType = {

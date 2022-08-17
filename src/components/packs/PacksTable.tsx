@@ -18,6 +18,7 @@ import {setParamsSortPack} from "../../bll/packsReducer";
 import {DeletePackModal} from "./modal/DeletePackModal";
 import {UpdatePackModal} from "./modal/UpdatePackModal";
 import  defaultImg from './../../image/defaultImg.jpg'
+import defoultImg from "../../image/defaultImg.jpg";
 
 
 export const PacksTable = () => {
@@ -32,6 +33,7 @@ export const PacksTable = () => {
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [packID, setPackID] = useState('');
     const [packName, setPackName] = useState('');
+    const [img, setImg] = useState<string>('');
     const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
 
     const sortUpdate = (sortParams: string) => {
@@ -48,10 +50,11 @@ export const PacksTable = () => {
         setPackID(packID);
         setPackName(name);
     }
-    const openModalUpdatePack = (packID: string,name:string) => {
+    const openModalUpdatePack = (packID: string,name:string,cover:string) => {
         setIsOpenUpdateModal(true)
         setPackID(packID);
         setPackName(name);
+        setImg(cover);
     }
 
 
@@ -83,7 +86,6 @@ export const PacksTable = () => {
                             >
 
                                 <TableCell   align="right">
-                                    {/*@ts-ignore*/}
                                     <img className={s.coverImg} src={pack.deckCover ? pack.deckCover : defaultImg }/></TableCell>
                                 <TableCell component="th" scope="row">
                                     <Link className={s.pack}
@@ -104,7 +106,7 @@ export const PacksTable = () => {
                                         Delete
                                     </Button>
                                     <Button
-                                        onClick={() => openModalUpdatePack(pack._id,pack.name)}
+                                        onClick={() => openModalUpdatePack(pack._id,pack.name,pack.deckCover)}
                                         disabled={userId !== pack.user_id}
                                         color="secondary"
                                         size="small"
@@ -135,6 +137,7 @@ export const PacksTable = () => {
                              setIsOpenModal={setIsOpenUpdateModal}
                              packName={packName}
                              packID={packID}
+                             img={img}
             />
 
         </>
