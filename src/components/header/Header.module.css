@@ -1,17 +1,19 @@
 .wrapper{
-    display: flex;
-    justify-content: space-around;
+
+
     background-color: aquamarine;
 }
-.nav{
+.contentWrapper{
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-
-    padding: 20px;
-    justify-content: center;
+    justify-content: space-between;
 
 }
-.nav a{
-    padding-right: 20px;
+.title{
+padding: 15px;
+    font-size: 24px;
+    color:darkgrey;
 }
 
 .logautIcon{

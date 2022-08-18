@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './Header.module.css';
-import {NavLink} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../bll/state";
+import {useAppDispatch} from "../../bll/state";
 import {logoutTC} from "../../bll/authReducer";
 
 export const Header = () => {
@@ -13,26 +12,10 @@ export const Header = () => {
     }
     return (
         <div className={s.wrapper}>
-            <nav className={s.nav}>
-
-                <div className={s.item}><NavLink to={'/'} className={({isActive}) =>
-                    isActive ? s.active : s.item}>Login</NavLink></div>
-                <div className={s.item}><NavLink to={'/registration'} className={({isActive}) =>
-                    isActive ? s.active : s.item}>Registration</NavLink></div>
-                <div className={s.item}><NavLink to={'/forgot'} className={({isActive}) =>
-                 isActive ? s.active : s.item}>Forgot</NavLink></div>
-                <div className={s.item}><NavLink to={'/profile'} className={({isActive}) =>
-                    isActive ? s.active : s.item}>Profile</NavLink></div>
-                <div className={s.item}><NavLink to={'/packs'} className={({isActive}) =>
-                    isActive ? s.active : s.item}>Packs</NavLink></div>
-                <div className={s.item}><NavLink to={'/cards:packId'} className={({isActive}) =>
-                    isActive ? s.active : s.item}>Cards</NavLink></div>
-                {/*<div className={s.item}><NavLink to={'/error'} className={({isActive}) =>*/}
-                {/*    isActive ? s.active : s.item}>Error</NavLink></div>*/}
-
-            </nav>
-
-            <button className={s.logautIcon} onClick={logoutHandler}> </button>
+            <div className={s.contentWrapper}>
+            <div className={s.title}>Training cards</div>
+                <button className={s.logautIcon} onClick={logoutHandler}> </button>
+            </div>
 
         </div>
     );

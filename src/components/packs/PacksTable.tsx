@@ -18,7 +18,6 @@ import {setParamsSortPack} from "../../bll/packsReducer";
 import {DeletePackModal} from "./modal/DeletePackModal";
 import {UpdatePackModal} from "./modal/UpdatePackModal";
 import  defaultImg from './../../image/defaultImg.jpg'
-import defoultImg from "../../image/defaultImg.jpg";
 
 
 export const PacksTable = () => {
