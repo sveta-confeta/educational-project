@@ -49,3 +49,12 @@
 .coverImg{
    text-align: center;
 }
+.link{
+    color: #7b1fa2;
+    cursor: pointer;
+}
+
+.imgUpdate{
+    max-width: 300px;
+    height: auto;
+}

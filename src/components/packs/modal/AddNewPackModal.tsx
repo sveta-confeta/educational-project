@@ -64,7 +64,7 @@ export const AddNewPackModal: React.FC<AddNewPackType> = React.memo(
                 <div className={s.coverText}>
                     <p>Cover</p>
                     {/*//привязываем загрузку рефом к этому тексту:*/}
-                    <a onClick={selectImageHandler}>Change cover</a>
+                    <a className={s.link} onClick={selectImageHandler}>Change cover</a>
                 </div>
                 <input type='file' //дефолтный инпут загрузки скрывается
                        ref={refLoader}

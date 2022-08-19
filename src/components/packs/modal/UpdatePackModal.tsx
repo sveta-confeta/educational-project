@@ -4,7 +4,6 @@ import {TextField} from '@mui/material';
 import {useAppDispatch} from "../../../bll/state";
 import {updatePackTC} from "../../../bll/packsReducer";
 import {BasicModal} from "../../../common/modal/Modal";
-import defoultImg from "../../../image/defaultImg.jpg";
 import {convertFileToBase64} from "../../../common/utils/convertFileToBase64";
 import {setErrorAC} from "../../../bll/appReducer";
 
@@ -27,16 +26,17 @@ export const UpdatePackModal: React.FC<UpdatePackModalType> = ({
     const [newPackName, setNewPackName] = useState<string>(packName)
     const [cover, setCover] = useState<string>(img);
 
-
     const dispatch = useAppDispatch()
 
     //чтобы в inpute подтягивалось старое название перед тем какм редактировать
     useEffect(() => {
         setNewPackName(packName)
-    }, [packName,cover])
+        setCover(img);
+    }, [packName,img])
 
     const updateCardPack = () => {
         dispatch(updatePackTC(packID, newPackName,cover))
+
     }
 
     const refLoader = useRef<HTMLInputElement>(null);
@@ -49,6 +49,7 @@ export const UpdatePackModal: React.FC<UpdatePackModalType> = ({
             if (file.size < 1000000) { //это одно из свойст загружаемого файла показано сколько mgbate-1, если больше то преобразование
                 convertFileToBase64(file, (file64: string) => {
                     setCover(file64)
+
 
                 })
             } else {
@@ -66,17 +67,16 @@ export const UpdatePackModal: React.FC<UpdatePackModalType> = ({
             <div className={s.coverText}>
                 <p>Cover</p>
                 {/*//привязываем загрузку рефом к этому тексту:*/}
-                <a onClick={selectImageHandler}>Change cover</a>
+                <a className={s.link} onClick={selectImageHandler}>Change cover</a>
             </div>
             <input type='file' //дефолтный инпут загрузки скрывается
                    ref={refLoader}
                    onChange={uploadHandler}
                    style={{display: 'none'}}
-
                    accept={'img/gif'}/>
 
             <div className={s.coverImg}>
-                <img src={cover}/>
+                <img className={s.imgUpdate} src={cover}/>
             </div>
             <TextField className={s.addItemField}
                        label="Title"

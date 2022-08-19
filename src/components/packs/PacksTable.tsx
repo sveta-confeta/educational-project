@@ -17,7 +17,7 @@ import {useAppDispatch, useAppSelector} from "../../bll/state";
 import {setParamsSortPack} from "../../bll/packsReducer";
 import {DeletePackModal} from "./modal/DeletePackModal";
 import {UpdatePackModal} from "./modal/UpdatePackModal";
-import  defaultImg from './../../image/defaultImg.jpg'
+import defaultImg from './../../image/defaultImg.jpg'
 
 
 export const PacksTable = () => {
@@ -43,13 +43,13 @@ export const PacksTable = () => {
     // const deleteHandler = (id: string) => {   был хардкод удаления пака
     //     dispatch(deletePackTC(id));
     // }
-     //modal:
-    const openModalDeletePack = (packID: string,name:string) => {
+    //modal:
+    const openModalDeletePack = (packID: string, name: string) => {
         setIsOpenDeleteModal(true)
         setPackID(packID);
         setPackName(name);
     }
-    const openModalUpdatePack = (packID: string,name:string,cover:string) => {
+    const openModalUpdatePack = (packID: string, name: string, cover: string) => {
         setIsOpenUpdateModal(true)
         setPackID(packID);
         setPackName(name);
@@ -84,8 +84,9 @@ export const PacksTable = () => {
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
 
-                                <TableCell   align="right">
-                                    <img className={s.coverImg} src={pack.deckCover ? pack.deckCover : defaultImg }/></TableCell>
+                                <TableCell align="right">
+                                    <img className={s.coverImg}
+                                         src={pack.deckCover ? pack.deckCover : defaultImg}/></TableCell>
                                 <TableCell component="th" scope="row">
                                     <Link className={s.pack}
                                           to={`/cards/${pack._id}`}>{pack.name}</Link>
@@ -97,7 +98,7 @@ export const PacksTable = () => {
                                 <TableCell className={s.buttonBlock}>
                                     <Button
                                         // onClick={() => deleteHandler(pack._id)} был хардкод
-                                        onClick={()=>openModalDeletePack(pack._id,pack.name)}
+                                        onClick={() => openModalDeletePack(pack._id, pack.name)}
                                         disabled={userId !== pack.user_id}
                                         color="error"
                                         size="small"
@@ -105,7 +106,7 @@ export const PacksTable = () => {
                                         Delete
                                     </Button>
                                     <Button
-                                        onClick={() => openModalUpdatePack(pack._id,pack.name,pack.deckCover)}
+                                        onClick={() => openModalUpdatePack(pack._id, pack.name, pack.deckCover)}
                                         disabled={userId !== pack.user_id}
                                         color="secondary"
                                         size="small"
@@ -126,17 +127,19 @@ export const PacksTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <DeletePackModal isOpenModal={isOpenDeleteModal}
-                             setIsOpenModal={setIsOpenDeleteModal}
-                             packID={packID}
-                             packName={packName}
+            <DeletePackModal
+                isOpenModal={isOpenDeleteModal}
+                setIsOpenModal={setIsOpenDeleteModal}
+                packID={packID}
+                packName={packName}
 
             />
-            <UpdatePackModal isOpenModal={isOpenUpdateModal}
-                             setIsOpenModal={setIsOpenUpdateModal}
-                             packName={packName}
-                             packID={packID}
-                             img={img}
+            <UpdatePackModal
+                isOpenModal={isOpenUpdateModal}
+                setIsOpenModal={setIsOpenUpdateModal}
+                packName={packName}
+                packID={packID}
+                img={img}
             />
 
         </>
