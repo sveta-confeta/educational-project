@@ -67,6 +67,11 @@ export const Login = () => {
 
     return (
         <div className={s.wrapper}>
+            <div className={s.text}>
+                <p> для теста проекта:</p>
+                <p> _svet_@tut.by</p>
+                <p> 101080Sveta</p>
+            </div>
             <Paper className={s.loginForm} elevation={3}>
                 <p className={s.title}>Sign In</p>
                 {/*//оборачиваем наши все формы тегом form..*/}
@@ -103,7 +108,7 @@ export const Login = () => {
                                         onClick={handleClickShowPassword}
                                         onMouseDown={handleMouseDownPassword}
                                     >
-                                        {valuesPassword.showPassword ? <Visibility/> :  <VisibilityOff/>}
+                                        {valuesPassword.showPassword ? <Visibility/> : <VisibilityOff/>}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -116,11 +121,11 @@ export const Login = () => {
                         <div style={{color: "red"}}>{formik.errors.password}</div>}
 
                     <FormControl variant="standard" sx={{m: 1, mt: 1, width: '30ch'}}>
-                    <FormControlLabel label={'Remember me'}
-                                      control={<Checkbox color="secondary"
-                                                         {...formik.getFieldProps('rememberMe')}
-                                                         checked={formik.values.rememberMe}/> //благодаря этой строке чекбокс тоже сбрасывается
-                                      }/>
+                        <FormControlLabel label={'Remember me'}
+                                          control={<Checkbox color="secondary"
+                                                             {...formik.getFieldProps('rememberMe')}
+                                                             checked={formik.values.rememberMe}/> //благодаря этой строке чекбокс тоже сбрасывается
+                                          }/>
 
                     </FormControl>
                     <NavLink className={s.textLink} to={'/forgot'}>Forgot Password</NavLink>
@@ -129,10 +134,9 @@ export const Login = () => {
                         Sign In
                     </Button>
                 </form>
-                    <p> Don’t have an account?</p>
-                    <NavLink to={'/registration'}>Sign Up</NavLink>
-                    <ErrorSnackbar/>
-
+                <p> Don’t have an account?</p>
+                <NavLink to={'/registration'}>Sign Up</NavLink>
+                <ErrorSnackbar/>
 
 
             </Paper>

@@ -4,6 +4,10 @@
     text-align: center;
     width: 100%;
 }
+.text{
+    text-align: center;
+    margin-bottom: 15px;
+}
 
 .loginForm {
     max-width: 330px;
